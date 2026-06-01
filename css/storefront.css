@@ -293,6 +293,103 @@
     line-height: 1.4;
 }
 
+.student-verify-hint--hidden {
+    visibility: hidden;
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.student-verify-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface-container);
+    border: 1px solid var(--color-outline-variant);
+    color: var(--color-on-surface-variant);
+    font-size: 13px;
+    font-weight: 500;
+    animation: student-verify-loading-in 280ms ease;
+}
+
+.student-verify-loading__text {
+    line-height: 1.4;
+}
+
+.student-verify-row--loading .input-field {
+    border-color: var(--color-primary-container);
+    box-shadow: 0 0 0 1px rgba(0, 106, 78, 0.15);
+}
+
+.student-verify-btn__leading {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.student-verify-btn__icon {
+    font-size: 18px;
+    line-height: 1;
+    transition: opacity 200ms ease;
+}
+
+.student-verify-btn--loading .student-verify-btn__icon {
+    opacity: 0;
+}
+
+.student-verify-btn--loading .nsbm-spinner--btn {
+    display: block;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+.nsbm-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--color-outline-variant);
+    border-top-color: var(--color-primary-container);
+    border-radius: 50%;
+    animation: nsbm-spin 0.75s linear infinite;
+    flex-shrink: 0;
+}
+
+.nsbm-spinner--btn {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+}
+
+@keyframes nsbm-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes student-verify-loading-in {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.checkout-form-card .input-field:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    background-color: var(--color-surface-container-high);
+}
+
 .student-verify-result {
     border-radius: var(--radius-lg);
     padding: 12px 14px;

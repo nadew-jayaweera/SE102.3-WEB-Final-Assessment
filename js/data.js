@@ -241,7 +241,7 @@
         },
 
         // 3. CHECKOUT & ORDERS API WRAPPERS
-        async verifyStudent(umisid) {
+        async verifyStudent(umisid, { silent = false } = {}) {
             try {
                 const response = await fetch(`${pathPrefix}api/verify_student.php`, {
                     method: 'POST',
@@ -253,10 +253,14 @@
                     return result;
                 }
                 const message = result.message || 'Student ID could not be verified.';
-                showToast(message, response.status === 404 ? 'info' : 'error');
+                if (!silent) {
+                    showToast(message, response.status === 404 ? 'info' : 'error');
+                }
                 return { ...result, status: result.status || 'error', message };
             } catch (err) {
-                showToast('Unable to reach student verification service.', 'error');
+                if (!silent) {
+                    showToast('Unable to reach student verification service.', 'error');
+                }
                 return { status: 'error', message: err.message, available: false };
             }
         },

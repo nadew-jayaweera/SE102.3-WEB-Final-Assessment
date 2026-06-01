@@ -304,21 +304,151 @@
         summaryList.innerHTML = html;
         totalSpan.innerText = "LKR " + subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 });
 
+        const AUTO_VERIFY_DELAY_MS = 650;
+        const MIN_STUDENT_ID_DIGITS = 5;
+
         let verifiedStudent = null;
+        let verifyDebounceTimer = null;
+        let verifyRequestToken = 0;
+        let autoFilledFromRegistry = false;
+
         const nsbmIdInput = document.getElementById("nsbm-id");
         const verifyBtn = document.getElementById("verify-student-btn");
+        const verifyRow = document.getElementById("student-verify-row");
+        const verifyLoading = document.getElementById("student-verify-loading");
         const verifyResult = document.getElementById("student-verify-result");
+        const verifyHint = document.getElementById("student-verify-hint");
+        const verifyBtnLabel = verifyBtn?.querySelector(".student-verify-btn__label");
+        const verifyBtnSpinner = verifyBtn?.querySelector(".nsbm-spinner--btn");
         const customerNameInput = document.getElementById("customer-name");
         const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const dependentFields = [customerNameInput, emailInput, phoneInput].filter(Boolean);
+
+        function normalizeStudentId(value) {
+            return String(value || "").replace(/\D/g, "");
+        }
+
+        function countStudentIdDigits(value) {
+            return normalizeStudentId(value).length;
+        }
+
+        function setDependentFieldsEnabled(enabled) {
+            dependentFields.forEach((field) => {
+                field.disabled = !enabled;
+            });
+        }
+
+        const VERIFY_HINT_DEFAULT =
+            "Enter your 5-digit NSBM Student ID — your registry details will load automatically. Other fields unlock once verified.";
+
+        function setVerificationLoading(loading) {
+            if (verifyBtn) {
+                verifyBtn.disabled = loading;
+                verifyBtn.classList.toggle("student-verify-btn--loading", loading);
+            }
+            if (verifyBtnSpinner) {
+                verifyBtnSpinner.hidden = !loading;
+            }
+            if (verifyBtnLabel) {
+                verifyBtnLabel.textContent = loading ? "Verifying…" : "Verify ID";
+            }
+            if (verifyRow) {
+                verifyRow.classList.toggle("student-verify-row--loading", loading);
+            }
+            if (verifyLoading) {
+                verifyLoading.hidden = !loading;
+            }
+            if (nsbmIdInput) {
+                nsbmIdInput.setAttribute("aria-busy", loading ? "true" : "false");
+            }
+            if (verifyHint && !verifiedStudent) {
+                verifyHint.classList.toggle("student-verify-hint--hidden", loading);
+                if (!loading) {
+                    verifyHint.textContent = VERIFY_HINT_DEFAULT;
+                }
+            }
+        }
 
         function clearStudentVerification() {
+            verifyRequestToken += 1;
+            clearTimeout(verifyDebounceTimer);
+            verifyDebounceTimer = null;
             verifiedStudent = null;
+            setVerificationLoading(false);
+            setDependentFieldsEnabled(false);
+            if (autoFilledFromRegistry) {
+                if (customerNameInput) customerNameInput.value = "";
+                if (emailInput) emailInput.value = "";
+                autoFilledFromRegistry = false;
+            }
             if (verifyResult) {
                 verifyResult.hidden = true;
                 verifyResult.innerHTML = "";
                 verifyResult.className = "student-verify-result";
             }
         }
+
+        function applyVerifiedStudent(student, { showSuccessToast = false } = {}) {
+            verifiedStudent = student;
+            autoFilledFromRegistry = true;
+            renderVerificationSuccess(student);
+            if (customerNameInput && student.name) {
+                customerNameInput.value = student.name;
+            }
+            if (emailInput && student.email) {
+                emailInput.value = student.email;
+            }
+            setDependentFieldsEnabled(true);
+            if (showSuccessToast) {
+                window.NSBM.showToast("Student ID verified.", "success");
+            }
+        }
+
+        function showVerificationFailure(message) {
+            verifiedStudent = null;
+            setDependentFieldsEnabled(false);
+            if (verifyResult) {
+                verifyResult.className = "student-verify-result student-verify-result--error";
+                verifyResult.hidden = false;
+                verifyResult.innerHTML = `<strong>Verification failed</strong><p style="margin: 6px 0 0;">${escapeHtml(message || "Student not found in NSBM registry.")}</p>`;
+            }
+        }
+
+        async function runStudentVerification(umisid, { silent = false, showSuccessToast = false } = {}) {
+            const normalizedId = normalizeStudentId(umisid);
+            if (normalizedId.length < MIN_STUDENT_ID_DIGITS) {
+                return;
+            }
+
+            const requestToken = ++verifyRequestToken;
+            setVerificationLoading(true);
+
+            try {
+                const result = await window.NSBM.verifyStudent(umisid.trim(), { silent });
+
+                if (requestToken !== verifyRequestToken) {
+                    return;
+                }
+
+                const currentNormalized = normalizeStudentId(nsbmIdInput?.value);
+                if (currentNormalized !== normalizedId) {
+                    return;
+                }
+
+                if (result?.status === "success" && result.student) {
+                    applyVerifiedStudent(result.student, { showSuccessToast });
+                } else {
+                    showVerificationFailure(result?.message);
+                }
+            } finally {
+                if (requestToken === verifyRequestToken) {
+                    setVerificationLoading(false);
+                }
+            }
+        }
+
+        setDependentFieldsEnabled(false);
 
         function renderVerificationSuccess(student) {
             if (!verifyResult) return;
@@ -358,9 +488,31 @@
 
         if (nsbmIdInput) {
             nsbmIdInput.addEventListener("input", () => {
-                if (verifiedStudent && nsbmIdInput.value.trim() !== verifiedStudent.umisid) {
+                const normalizedInput = normalizeStudentId(nsbmIdInput.value);
+                const normalizedVerified = verifiedStudent
+                    ? normalizeStudentId(verifiedStudent.umisid)
+                    : "";
+
+                if (verifiedStudent && normalizedInput !== normalizedVerified) {
                     clearStudentVerification();
                 }
+
+                clearTimeout(verifyDebounceTimer);
+                if (normalizedInput.length < MIN_STUDENT_ID_DIGITS) {
+                    verifyRequestToken += 1;
+                    setVerificationLoading(false);
+                    if (!verifiedStudent && verifyResult && !verifyResult.hidden) {
+                        verifyResult.hidden = true;
+                        verifyResult.innerHTML = "";
+                        verifyResult.className = "student-verify-result";
+                    }
+                    return;
+                }
+
+                const umisid = nsbmIdInput.value.trim();
+                verifyDebounceTimer = setTimeout(() => {
+                    runStudentVerification(umisid, { silent: true });
+                }, AUTO_VERIFY_DELAY_MS);
             });
         }
 
@@ -371,33 +523,8 @@
                     window.NSBM.showToast("Enter your NSBM Student ID first.", "error");
                     return;
                 }
-
-                verifyBtn.disabled = true;
-                const label = verifyBtn.querySelector("span:last-child");
-                const prevLabel = label?.textContent || "Verify ID";
-                if (label) label.textContent = "Verifying…";
-
-                const result = await window.NSBM.verifyStudent(umisid);
-
-                verifyBtn.disabled = false;
-                if (label) label.textContent = prevLabel;
-
-                if (result?.status === "success" && result.student) {
-                    verifiedStudent = result.student;
-                    renderVerificationSuccess(result.student);
-                    if (customerNameInput && result.student.name) {
-                        customerNameInput.value = result.student.name;
-                    }
-                    if (emailInput && result.student.email && !emailInput.value.trim()) {
-                        emailInput.value = result.student.email;
-                    }
-                    window.NSBM.showToast("Student ID verified.", "success");
-                } else if (verifyResult) {
-                    verifyResult.className = "student-verify-result student-verify-result--error";
-                    verifyResult.hidden = false;
-                    verifyResult.innerHTML = `<strong>Verification failed</strong><p style="margin: 6px 0 0;">${escapeHtml(result?.message || "Student not found in NSBM registry.")}</p>`;
-                    verifiedStudent = null;
-                }
+                clearTimeout(verifyDebounceTimer);
+                await runStudentVerification(umisid, { silent: false, showSuccessToast: true });
             });
         }
 
@@ -418,7 +545,10 @@
                     return;
                 }
 
-                if (!verifiedStudent || verifiedStudent.umisid !== nsbmId) {
+                if (
+                    !verifiedStudent
+                    || normalizeStudentId(verifiedStudent.umisid) !== normalizeStudentId(nsbmId)
+                ) {
                     window.NSBM.showToast("Please verify your NSBM Student ID before submitting.", "error");
                     return;
                 }

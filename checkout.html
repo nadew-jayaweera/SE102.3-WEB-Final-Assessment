@@ -54,14 +54,21 @@
                     
                     <div class="student-verify-block">
                         <label for="nsbm-id" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">NSBM Student ID *</label>
-                        <div class="student-verify-row">
-                            <input type="text" id="nsbm-id" class="input-field" required placeholder="34565" autocomplete="off">
+                        <div class="student-verify-row" id="student-verify-row">
+                            <input type="text" id="nsbm-id" class="input-field" required placeholder="34565" autocomplete="off" inputmode="numeric" maxlength="10" aria-describedby="student-verify-hint">
                             <button type="button" id="verify-student-btn" class="btn btn-secondary student-verify-btn">
-                                <span class="material-symbols-outlined" style="font-size: 18px;">verified_user</span>
-                                <span>Verify ID</span>
+                                <span class="student-verify-btn__leading" aria-hidden="true">
+                                    <span class="material-symbols-outlined student-verify-btn__icon">verified_user</span>
+                                    <span class="nsbm-spinner nsbm-spinner--btn" hidden></span>
+                                </span>
+                                <span class="student-verify-btn__label">Verify ID</span>
                             </button>
                         </div>
-                        <p class="student-verify-hint">Verify your ID with the official NSBM student registry before submitting.</p>
+                        <div id="student-verify-loading" class="student-verify-loading" hidden role="status" aria-live="polite">
+                            <span class="nsbm-spinner" aria-hidden="true"></span>
+                            <span class="student-verify-loading__text">Looking up your NSBM registry record…</span>
+                        </div>
+                        <p id="student-verify-hint" class="student-verify-hint">Enter your 5-digit NSBM Student ID — your registry details will load automatically. Other fields unlock once verified.</p>
                         <div id="student-verify-result" class="student-verify-result" hidden aria-live="polite"></div>
                     </div>
 
