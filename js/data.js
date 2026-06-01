@@ -15,7 +15,7 @@
         if (!container) {
             container = document.createElement("div");
             container.id = "nsbm-toast-container";
-            container.style.cssText = "position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; font-family: 'Montserrat', sans-serif;";
+            container.style.cssText = "position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10000; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; font-family: 'Montserrat', sans-serif;";
             document.body.appendChild(container);
         }
 
