@@ -1,5 +1,5 @@
 <?php
-// NS SHOP - PDO Database Connection and Utilities
+// NSBM Creators Hub - PDO Database Connection and Utilities
 // Saved at /d:/Project/Web/code/db.php
 
 // 1. Establish PHP Session

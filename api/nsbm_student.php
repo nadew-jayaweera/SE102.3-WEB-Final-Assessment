@@ -1,5 +1,5 @@
 <?php
-// NS SHOP - NSBM student registry lookup (payments pay_data.php)
+// NSBM Creators Hub - NSBM student registry lookup (payments pay_data.php)
 
 /**
  * Fetches student details from NSBM online payments API.

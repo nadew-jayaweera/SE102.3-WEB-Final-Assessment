@@ -1,4 +1,4 @@
-// NS SHOP - Administrative Portal Views & CRUD Controller
+// NSBM Creators Hub - Administrative Portal Views & CRUD Controller
 // Saved at /d:/Project/Web/code/js/admin.js
 
 (function () {
