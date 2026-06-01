@@ -2,19 +2,22 @@
 <!-- NSBM Mini Store - Student Homepage -->
 <!-- Saved at /d:/Project/Web/code/index.html -->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NSBM Mini Store - Creative Campus Marketplace</title>
-    
+
     <!-- Centralized CSS Styling -->
     <link rel="stylesheet" href="css/design-system.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/storefront.css">
-    
+
     <!-- Google Fonts & Iconsets -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
+
 <body>
 
     <!-- Dynamic Header Navigation Bar -->
@@ -22,26 +25,28 @@
         <div class="header-wrap">
             <!-- Brand Logo -->
             <a href="index.html" class="brand-logo">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
+                <span class="material-symbols-outlined"
+                    style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
                 <span>NSBM Mini Store</span>
             </a>
-            
+
             <!-- Navigation Links -->
             <nav class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
                 <a href="products.html" class="nav-link">Products</a>
                 <a href="about.html" class="nav-link">About</a>
             </nav>
-            
+
             <!-- Actions Section -->
             <div class="flex" style="display: flex; align-items: center; gap: 12px;">
-                <a href="admin/login.html" class="btn btn-secondary" style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
+                <a href="admin/login.html" class="btn btn-secondary"
+                    style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
             </div>
         </div>
     </header>
 
     <main style="flex-grow: 1;">
-        
+
         <!-- Premium Institutional Hero Section -->
         <section class="hero-section">
             <div class="hero-wrap">
@@ -51,16 +56,19 @@
                         Buy Creative Products Made for <span>NSBM Students</span>
                     </h1>
                     <p class="hero-desc">
-                        Discover unique handmade crafts, study essentials, and custom apparel created by your university peers. Support student creators today.
+                        Discover unique handmade crafts, study essentials, and custom apparel created by your university
+                        peers. Support student creators today.
                     </p>
                     <div style="display: flex; gap: 12px; margin-top: 16px;">
                         <a href="products.html" class="btn btn-primary" style="padding: 12px 24px;">Shop Now</a>
-                        <a href="admin/login.html" class="btn btn-secondary" style="padding: 12px 24px;">Admin Portal</a>
+                        <a href="admin/login.html" class="btn btn-secondary" style="padding: 12px 24px;">Admin
+                            Portal</a>
                     </div>
                 </div>
                 <!-- Right Showcase Image -->
                 <div class="hero-image-wrap">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800" alt="Students collaborating on campus" class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800"
+                        alt="Students collaborating on campus" class="hero-image">
                 </div>
             </div>
             <div class="hero-bg-blur"></div>
@@ -68,51 +76,63 @@
 
         <!-- Featured Products Showcase -->
         <section style="max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-margin-mobile);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-md);">
+            <div
+                style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-md);">
                 <div>
-                    <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface);">Featured Products</h2>
-                    <p style="font-size: 14px; color: var(--color-on-surface-variant);">Handpicked campus essentials from our dynamic creators.</p>
+                    <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface);">Featured Products
+                    </h2>
+                    <p style="font-size: 14px; color: var(--color-on-surface-variant);">Handpicked campus essentials
+                        from our dynamic creators.</p>
                 </div>
-                <a href="products.html" class="text-primary-container font-semibold" style="display: flex; align-items: center; gap: 4px; font-size: 14px;">
+                <a href="products.html" class="text-primary-container font-semibold"
+                    style="display: flex; align-items: center; gap: 4px; font-size: 14px;">
                     <span>View All Catalog</span>
                     <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
                 </a>
             </div>
-            
+
             <!-- Dynamic Grid (JS Populated) -->
-            <div id="featured-products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-gutter);">
+            <div id="featured-products-grid"
+                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-gutter);">
                 <!-- Populated asynchronously via storefront.js -->
             </div>
         </section>
 
         <!-- Bento Grid Category Browser -->
-        <section style="background-color: var(--color-surface-container-low); padding: var(--spacing-lg) var(--spacing-margin-mobile);">
+        <section
+            style="background-color: var(--color-surface-container-low); padding: var(--spacing-lg) var(--spacing-margin-mobile);">
             <div style="max-width: 1200px; margin: 0 auto;">
-                <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface); text-align: center; margin-bottom: var(--spacing-md);">Browse by Category</h2>
-                
+                <h2
+                    style="font-size: 28px; font-weight: 700; color: var(--color-on-surface); text-align: center; margin-bottom: var(--spacing-md);">
+                    Browse by Category</h2>
+
                 <div class="bento-grid">
                     <!-- Apparel Card -->
                     <a href="products.html?category=Apparel" class="bento-card bento-lg">
-                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600" alt="Apparel Collection">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600"
+                            alt="Apparel Collection">
                         <div class="bento-overlay"></div>
                         <div class="bento-content">
                             <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 4px;">Premium Apparel</h3>
-                            <p style="font-size: 13px; color: var(--color-outline-variant);">Institutional hoodies, custom tees, and canvas wear.</p>
+                            <p style="font-size: 13px; color: var(--color-outline-variant);">Institutional hoodies,
+                                custom tees, and canvas wear.</p>
                         </div>
                     </a>
-                    
+
                     <!-- Crafts Card -->
                     <a href="products.html?category=Handmade%20Crafts" class="bento-card bento-md">
-                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600" alt="Handmade Crafts">
+                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600"
+                            alt="Handmade Crafts">
                         <div class="bento-overlay"></div>
                         <div class="bento-content">
                             <h3 style="font-size: 18px; font-weight: 700;">Handmade Crafts</h3>
                         </div>
                     </a>
-                    
+
                     <!-- Stationery Card -->
                     <a href="products.html?category=Stationery" class="bento-card bento-md">
-                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600" alt="Study Stationery">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600"
+                            alt="Study Stationery">
                         <div class="bento-overlay"></div>
                         <div class="bento-content">
                             <h3 style="font-size: 18px; font-weight: 700;">Study Essentials</h3>
@@ -120,7 +140,8 @@
                     </a>
 
                     <!-- Digital Art Card -->
-                    <a href="products.html?category=Digital%20Art" class="bento-card bento-md" style="grid-column: span 2;">
+                    <a href="products.html?category=Digital%20Art" class="bento-card bento-md"
+                        style="grid-column: span 2;">
                         <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600" alt="Digital Art">
                         <div class="bento-overlay"></div>
                         <div class="bento-content">
@@ -134,24 +155,31 @@
     </main>
 
     <!-- Footer Area -->
-    <footer style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center;">
-        <div class="flex-col-md-row" style="max-width: 1200px; margin: 0 auto; justify-content: space-between; align-items: center; gap: 16px;">
+    <footer
+        style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center;">
+        <div class="flex-col-md-row"
+            style="max-width: 1200px; margin: 0 auto; justify-content: space-between; align-items: center; gap: 16px;">
             <div style="text-align: left;">
-                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM Mini Store</h3>
-                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and handmade craftsmanship.</p>
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM
+                    Mini Store</h3>
+                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and
+                    handmade craftsmanship.</p>
             </div>
-            <div style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
+            <div
+                style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
                 <a href="#" class="text-primary-container">Campus Map</a>
                 <a href="#" class="text-primary-container">Contact Us</a>
                 <a href="#" class="text-primary-container">Terms</a>
             </div>
         </div>
-        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2024 NSBM Mini Store. All rights reserved.</p>
+        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2026 NSBM Mini Store. All rights
+            reserved.</p>
     </footer>
 
-    <!-- Asynchronous JS Modules -->
+    <!-- Asynchronous JS Modules -->4
     <script src="js/data.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/storefront.js"></script>
 </body>
+
 </html>
