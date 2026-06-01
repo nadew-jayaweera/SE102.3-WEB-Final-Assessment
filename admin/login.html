@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Portal Login — NSBM Green Mini Store">
+  <title>Admin Login — NSBM Green Mini Store</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<main class="login-page" id="main-content">
+  <div class="login-card" role="main">
+    <div class="login-card-header">
+      <div class="login-logo" aria-hidden="true">GS</div>
+      <h1 class="login-title">Admin Portal</h1>
+      <p class="login-subtitle">NSBM Green Mini Store Management</p>
+    </div>
+    <div class="login-card-body">
+      <div class="login-error hidden" id="login-error" role="alert">
+        <span>🚫</span>
+        <span id="login-error-msg">Invalid email or password.</span>
+      </div>
+      <form class="login-form" id="login-form" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <div class="input-group">
+            <span class="input-icon" aria-hidden="true">📧</span>
+            <input type="email" id="login-email" class="form-control" placeholder="admin@nsbm.ac.lk" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="input-group">
+            <span class="input-icon" aria-hidden="true">🔑</span>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-btn">
+          Sign In to Admin Portal
+        </button>
+      </form>
+
+      <p class="login-hint">
+        Demo credentials: <code>admin@nsbm.ac.lk</code> / <code>admin123</code>
+      </p>
+
+      <div style="text-align:center;margin-top:var(--space-lg)">
+        <a href="../index.html" style="font-size:var(--font-body-sm);color:var(--color-on-surface-3)">← Back to Store</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/router.js"></script>
+<script>
+  // If already logged in, redirect to dashboard
+  if (sessionStorage.getItem('nsbm_admin_auth') === 'true') {
+    window.location.replace('dashboard.html');
+  }
+
+  document.getElementById('login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const emailVal = document.getElementById('login-email').value.trim();
+    const passVal  = document.getElementById('login-password').value;
+    const btn      = document.getElementById('login-btn');
+    const errDiv   = document.getElementById('login-error');
+
+    btn.textContent = 'Signing in…';
+    btn.disabled    = true;
+
+    // Simulate async auth
+    setTimeout(() => {
+      const { email, password } = NSBMStore.adminUser;
+      if (emailVal === email && passVal === password) {
+        sessionStorage.setItem('nsbm_admin_auth', 'true');
+        sessionStorage.setItem('nsbm_admin_user', JSON.stringify(NSBMStore.adminUser));
+        window.location.replace('dashboard.html');
+      } else {
+        errDiv.classList.remove('hidden');
+        document.getElementById('login-error-msg').textContent = 'Invalid email or password. Please try again.';
+        btn.textContent = 'Sign In to Admin Portal';
+        btn.disabled    = false;
+        document.getElementById('login-password').value = '';
+        document.getElementById('login-password').focus();
+      }
+    }, 800);
+  });
+
+  // Remove error on input
+  ['login-email','login-password'].forEach(id => {
+    document.getElementById(id).addEventListener('input', () => {
+      document.getElementById('login-error').classList.add('hidden');
+    });
+  });
+</script>
+</body>
+</html>

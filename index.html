@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NSBM Green Mini Store — Shop handmade crafts, digital art, baked goods, and study essentials created by NSBM students.">
+  <title>NSBM Green Mini Store — Student Marketplace</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/storefront.css">
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────────────────────── -->
+<header class="navbar" role="banner">
+  <div class="container">
+    <a href="index.html" class="navbar-brand" aria-label="NSBM Green Mini Store Home">
+      <div class="brand-logo" aria-hidden="true">GS</div>
+      <span>NSBM Mini Store</span>
+    </a>
+
+    <nav class="navbar-nav" aria-label="Main navigation">
+      <a href="index.html"          class="nav-link" id="nav-home">Home</a>
+      <a href="products.html"       class="nav-link" id="nav-products">Products</a>
+      <a href="products.html?cat=handmade"  class="nav-link">Handmade</a>
+      <a href="products.html?cat=baked"     class="nav-link">Baked Goods</a>
+      <a href="products.html?cat=study"     class="nav-link">Study</a>
+    </nav>
+
+    <div class="navbar-actions">
+      <a href="checkout.html" class="cart-btn" id="cart-btn" aria-label="View cart">
+        🛒 Cart
+        <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
+      </a>
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle mobile menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <a href="index.html"   class="nav-link">🏠 Home</a>
+  <a href="products.html" class="nav-link">🛍️ All Products</a>
+  <a href="products.html?cat=handmade"   class="nav-link">🎨 Handmade Crafts</a>
+  <a href="products.html?cat=baked"      class="nav-link">🍰 Baked Goods</a>
+  <a href="products.html?cat=study"      class="nav-link">📚 Study Essentials</a>
+  <a href="products.html?cat=digital"    class="nav-link">🖼️ Digital Art</a>
+  <a href="products.html?cat=accessories" class="nav-link">💍 Accessories</a>
+</nav>
+
+<main id="main-content">
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-overline">🌿 Student-Powered Marketplace</div>
+          <h1 class="hero-title" id="hero-title">
+            Shop <em>Unique</em> Creations<br>from NSBM Students
+          </h1>
+          <p class="hero-subtitle">
+            Discover handmade crafts, freshly baked goods, digital art, and study essentials — all created and sold by talented NSBM students.
+          </p>
+          <div class="hero-actions">
+            <a href="products.html" class="btn-hero-primary">Browse Products →</a>
+            <a href="products.html?cat=handmade" class="btn-hero-outline">View Handmade</a>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-value" id="stat-products">14+</div>
+              <div class="hero-stat-label">Products Listed</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">9</div>
+              <div class="hero-stat-label">Student Sellers</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">5</div>
+              <div class="hero-stat-label">Categories</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-card-stack">
+            <div class="hero-card">
+              <div class="hero-card-img">
+                <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&q=80" alt="Featured product">
+              </div>
+              <div class="hero-card-name">Macramé Wall Hanging</div>
+              <div class="hero-card-price">Rs. 1,850</div>
+            </div>
+            <div class="hero-card-floating">
+              <span class="hero-card-floating-icon">✅</span>
+              <div>
+                <div style="font-weight:700;font-size:0.85rem;color:#1c1b1b">Order placed!</div>
+                <div style="font-size:0.75rem;color:#6f7a73">Ashan just purchased</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Categories ────────────────────────────────────────────── -->
+  <section class="section-sm" aria-labelledby="categories-title">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-overline">Explore by Category</span>
+        <h2 class="section-title" id="categories-title">What are you looking for?</h2>
+      </div>
+      <div class="categories-grid" id="categories-grid" role="list">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Products ──────────────────────────────────────── -->
+  <section class="section" style="background: var(--color-surface-3);" aria-labelledby="featured-title">
+    <div class="container">
+      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-md)">
+        <div>
+          <span class="section-overline">Handpicked for you</span>
+          <h2 class="section-title" id="featured-title">Featured Products</h2>
+          <p class="section-subtitle">Top picks from our most loved student creators</p>
+        </div>
+        <a href="products.html" class="btn btn-outline">View All Products →</a>
+      </div>
+      <div class="products-grid" id="featured-grid" aria-label="Featured products">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Promo Banner ───────────────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="promo-banner" role="complementary" aria-label="Study Essentials promotion">
+        <div>
+          <div class="promo-overline">📚 Exam Season Special</div>
+          <h2 class="promo-title">Stock Up on Study Essentials</h2>
+          <p class="promo-subtitle">Notebooks, highlighters, index cards — everything you need, curated by students who've been there.</p>
+          <a href="products.html?cat=study" class="btn btn-primary btn-lg">Shop Study Essentials</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── All Products Glimpse ───────────────────────────────────── -->
+  <section class="section" aria-labelledby="more-title">
+    <div class="container">
+      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-md)">
+        <div>
+          <span class="section-overline">More to Discover</span>
+          <h2 class="section-title" id="more-title">From Our Community</h2>
+        </div>
+        <a href="products.html" class="btn btn-outline">Browse All →</a>
+      </div>
+      <div class="products-grid" id="more-grid" aria-label="More products">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo" aria-hidden="true">GS</div>
+        <div class="footer-brand-name">NSBM Green Mini Store</div>
+        <p class="footer-brand-desc">A student-powered marketplace connecting creative NSBM students with buyers on campus. Support local talent, buy local.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html?cat=handmade">Handmade Crafts</a></li>
+          <li><a href="products.html?cat=baked">Baked Goods</a></li>
+          <li><a href="products.html?cat=study">Study Essentials</a></li>
+          <li><a href="products.html?cat=digital">Digital Art</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Seller Guidelines</a></li>
+          <li><a href="#">Returns Policy</a></li>
+          <li><a href="#">Contact Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>NSBM</h4>
+        <ul>
+          <li><a href="https://www.nsbm.ac.lk" target="_blank" rel="noopener">NSBM Website</a></li>
+          <li><a href="#">Student Portal</a></li>
+          <li><a href="admin/login.html">Admin Portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 NSBM Green Mini Store. All rights reserved.</span>
+      <span>Built by NSBM Students 💚</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/router.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Update product stat
+    document.getElementById('stat-products').textContent = NSBMStore.products.length + '+';
+
+    // Render categories
+    const catGrid = document.getElementById('categories-grid');
+    NSBMStore.categories.filter(c => c.id !== 'all').forEach(cat => {
+      catGrid.innerHTML += `
+        <a href="products.html?cat=${cat.id}" class="category-tile" role="listitem">
+          <div class="category-icon">${cat.icon}</div>
+          <div class="category-name">${cat.name}</div>
+          <div class="category-count">${cat.count} items</div>
+        </a>`;
+    });
+
+    // Render featured products
+    const featuredGrid = document.getElementById('featured-grid');
+    NSBMStore.getFeaturedProducts().forEach(p => {
+      featuredGrid.innerHTML += renderProductCard(p);
+    });
+
+    // Render "more" products (non-featured, first 4)
+    const moreGrid = document.getElementById('more-grid');
+    NSBMStore.products.filter(p => !p.featured).slice(0, 4).forEach(p => {
+      moreGrid.innerHTML += renderProductCard(p);
+    });
+  });
+</script>
+</body>
+</html>

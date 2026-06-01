@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Admin Dashboard — NSBM Green Mini Store">
+  <title>Dashboard — NSBM Admin Portal</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- ── Sidebar ────────────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">GS</div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">Mini Store</div>
+        <div class="sidebar-brand-sub">Admin Portal</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="dashboard.html"         class="sidebar-link active" id="sl-dashboard">
+          <span class="sidebar-icon" aria-hidden="true">📊</span> Dashboard
+        </a>
+        <a href="products.html"          class="sidebar-link" id="sl-products">
+          <span class="sidebar-icon" aria-hidden="true">📦</span> Manage Products
+        </a>
+        <a href="purchase-requests.html" class="sidebar-link" id="sl-orders">
+          <span class="sidebar-icon" aria-hidden="true">🧾</span> Purchase Requests
+          <span class="sidebar-badge" id="pending-badge">0</span>
+        </a>
+      </div>
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Actions</div>
+        <a href="add-product.html" class="sidebar-link" id="sl-add">
+          <span class="sidebar-icon" aria-hidden="true">➕</span> Add Product
+        </a>
+        <a href="../index.html" class="sidebar-link" target="_blank">
+          <span class="sidebar-icon" aria-hidden="true">🏪</span> View Store
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user" id="sidebar-user">
+        <div class="sidebar-user-avatar" id="user-avatar">A</div>
+        <div>
+          <div class="sidebar-user-name" id="user-name">Admin</div>
+          <div class="sidebar-user-role" id="user-role">Administrator</div>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" id="logout-btn" onclick="doLogout()">
+        🚪 Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main Content ───────────────────────────────────────────── -->
+  <div class="admin-main">
+    <!-- Topbar -->
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-topbar-title">Dashboard</div>
+        <div class="admin-topbar-subtitle" id="topbar-date">Loading…</div>
+      </div>
+      <div class="admin-topbar-actions">
+        <a href="add-product.html" class="btn btn-primary btn-sm">➕ Add Product</a>
+        <button class="btn btn-ghost btn-sm" onclick="location.reload()" title="Refresh data">🔄</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-content" id="admin-content">
+
+      <!-- KPI Cards -->
+      <div class="stats-grid" id="stats-grid" role="region" aria-label="Key metrics">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Main Grid: Recent Activity + Quick Actions -->
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-xl);margin-bottom:var(--space-xl)">
+
+        <!-- Recent Activity -->
+        <div class="table-card" role="region" aria-label="Recent activity">
+          <div class="table-card-header">
+            <div class="table-card-title">Recent Activity</div>
+          </div>
+          <div class="activity-list" id="activity-list">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div>
+          <div class="table-card" style="margin-bottom:var(--space-lg)">
+            <div class="table-card-header">
+              <div class="table-card-title">Quick Actions</div>
+            </div>
+            <div style="padding:var(--space-md)">
+              <div class="quick-actions">
+                <a href="add-product.html"         class="quick-action-btn" id="qa-add-product">
+                  <span class="quick-action-icon">➕</span>
+                  <span class="quick-action-label">Add Product</span>
+                </a>
+                <a href="purchase-requests.html"   class="quick-action-btn" id="qa-orders">
+                  <span class="quick-action-icon">🧾</span>
+                  <span class="quick-action-label">Orders</span>
+                </a>
+                <a href="products.html"            class="quick-action-btn" id="qa-products">
+                  <span class="quick-action-icon">📦</span>
+                  <span class="quick-action-label">Products</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Store Summary -->
+          <div class="table-card">
+            <div class="table-card-header">
+              <div class="table-card-title">Store Health</div>
+            </div>
+            <div style="padding:var(--space-lg)">
+              <div id="store-health-list"><!-- Rendered by JS --></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders Table -->
+      <div class="table-card" role="region" aria-label="Recent orders">
+        <div class="table-card-header">
+          <div class="table-card-title">Recent Purchase Requests</div>
+          <div class="table-card-actions">
+            <a href="purchase-requests.html" class="btn btn-outline btn-sm">View All →</a>
+          </div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table" aria-label="Recent purchase requests">
+            <thead>
+              <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Buyer</th>
+                <th scope="col">Product</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody id="recent-orders-body">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-layout -->
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/router.js"></script>
+<script>
+  // Auth Guard
+  if (sessionStorage.getItem('nsbm_admin_auth') !== 'true') {
+    window.location.replace('login.html');
+  }
+
+  function doLogout() {
+    sessionStorage.removeItem('nsbm_admin_auth');
+    sessionStorage.removeItem('nsbm_admin_user');
+    window.location.replace('login.html');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set user info
+    const user = JSON.parse(sessionStorage.getItem('nsbm_admin_user') || '{}');
+    if (user.name)     document.getElementById('user-name').textContent    = user.name;
+    if (user.role)     document.getElementById('user-role').textContent    = user.role;
+    if (user.initials) document.getElementById('user-avatar').textContent  = user.initials;
+
+    // Date
+    document.getElementById('topbar-date').textContent = new Date().toLocaleDateString('en-LK', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    // Pending badge
+    const pendingCount = NSBMStore.purchaseRequests.filter(r => r.status === 'pending').length;
+    document.getElementById('pending-badge').textContent = pendingCount;
+
+    // Stats
+    const stats = NSBMStore.getStats();
+    const statsData = [
+      { label: 'Total Products', value: stats.totalProducts, icon: '📦', change: '+2 this week', dir: 'up', accent: '#006A4E', iconBg: '#e8f5f0', iconColor: '#006A4E' },
+      { label: 'Pending Orders', value: stats.pendingOrders, icon: '⏳', change: `${stats.pendingOrders} awaiting review`, dir: 'neutral', accent: '#f57f17', iconBg: '#fff8e1', iconColor: '#f57f17' },
+      { label: 'Total Revenue',  value: 'Rs. ' + stats.totalRevenue.toLocaleString('en-LK'), icon: '💰', change: 'From approved orders', dir: 'up', accent: '#2e7d32', iconBg: '#e8f5e9', iconColor: '#2e7d32' },
+      { label: 'Active Sellers', value: stats.activeSellers, icon: '🧑‍💼', change: 'Verified sellers', dir: 'up', accent: '#1565c0', iconBg: '#e3f2fd', iconColor: '#1565c0' },
+    ];
+
+    const statsGrid = document.getElementById('stats-grid');
+    statsData.forEach(s => {
+      statsGrid.innerHTML += `
+        <div class="stat-card" style="--stat-accent:${s.accent};--stat-icon-bg:${s.iconBg};--stat-icon-color:${s.iconColor}">
+          <div class="stat-icon" aria-hidden="true">${s.icon}</div>
+          <div class="stat-label">${s.label}</div>
+          <div class="stat-value">${s.value}</div>
+          <div class="stat-change ${s.dir === 'up' ? 'up' : ''}">${s.change}</div>
+        </div>`;
+    });
+
+    // Activity
+    const actList = document.getElementById('activity-list');
+    NSBMStore.recentActivity.forEach(a => {
+      actList.innerHTML += `
+        <div class="activity-item">
+          <div class="activity-dot ${a.type}"></div>
+          <div class="activity-text">${a.text}</div>
+          <div class="activity-time">${a.time}</div>
+        </div>`;
+    });
+
+    // Store health
+    const lowStock = NSBMStore.products.filter(p => p.stock > 0 && p.stock <= 5).length;
+    const outStock  = NSBMStore.products.filter(p => p.stock === 0).length;
+    const healthList = document.getElementById('store-health-list');
+    const healthItems = [
+      { label: 'Products Active',    value: NSBMStore.products.filter(p => p.stock > 0).length, ok: true },
+      { label: 'Low Stock Products', value: lowStock, ok: lowStock === 0 },
+      { label: 'Out of Stock',       value: outStock,  ok: outStock  === 0 },
+      { label: 'Pending Orders',     value: pendingCount, ok: pendingCount === 0 },
+    ];
+    healthItems.forEach(h => {
+      healthList.innerHTML += `
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;border-bottom:1px solid var(--color-outline-xlight)">
+          <span style="font-size:var(--font-body-sm);color:var(--color-on-surface-2)">${h.label}</span>
+          <span class="chip ${h.ok ? 'chip-success' : 'chip-warning'}">${h.value}</span>
+        </div>`;
+    });
+
+    // Recent orders
+    const tbody = document.getElementById('recent-orders-body');
+    NSBMStore.purchaseRequests.slice(0, 5).forEach(order => {
+      const chip = NSBMStore.getStatusChip(order.status);
+      tbody.innerHTML += `
+        <tr>
+          <td><span style="font-family:monospace;font-weight:var(--fw-semibold)">${order.id}</span></td>
+          <td>
+            <div style="font-weight:var(--fw-semibold)">${order.buyer}</div>
+            <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">${order.studentId}</div>
+          </td>
+          <td>${order.productName}</td>
+          <td style="font-weight:var(--fw-semibold);color:var(--color-primary)">${NSBMStore.formatPrice(order.total)}</td>
+          <td><span class="chip ${chip.cls}">${chip.label}</span></td>
+          <td style="color:var(--color-on-surface-3)">${order.date}</td>
+        </tr>`;
+    });
+  });
+</script>
+</body>
+</html>

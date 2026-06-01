@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Purchase Requests — NSBM Admin Portal">
+  <title>Purchase Requests — NSBM Admin Portal</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">GS</div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">Mini Store</div>
+        <div class="sidebar-brand-sub">Admin Portal</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="dashboard.html"         class="sidebar-link"><span class="sidebar-icon">📊</span> Dashboard</a>
+        <a href="products.html"          class="sidebar-link"><span class="sidebar-icon">📦</span> Manage Products</a>
+        <a href="purchase-requests.html" class="sidebar-link active"><span class="sidebar-icon">🧾</span> Purchase Requests</a>
+      </div>
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Actions</div>
+        <a href="add-product.html" class="sidebar-link"><span class="sidebar-icon">➕</span> Add Product</a>
+        <a href="../index.html"    class="sidebar-link" target="_blank"><span class="sidebar-icon">🏪</span> View Store</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="user-avatar">A</div>
+        <div>
+          <div class="sidebar-user-name" id="user-name">Admin</div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="doLogout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-topbar-title">Purchase Requests</div>
+        <div class="admin-topbar-subtitle" id="request-count-label">Loading…</div>
+      </div>
+      <div class="admin-topbar-actions">
+        <span style="font-size:var(--font-body-sm);color:var(--color-on-surface-3)">
+          <span id="pending-count-badge" class="chip chip-pending">0 pending</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- Status Tabs -->
+      <div class="status-tabs" role="tablist" aria-label="Filter by status">
+        <button class="status-tab active" id="tab-all"      onclick="setTab('all')"      role="tab" aria-selected="true"  aria-controls="requests-panel">
+          All <span class="tab-count" id="cnt-all">0</span>
+        </button>
+        <button class="status-tab" id="tab-pending"  onclick="setTab('pending')"  role="tab" aria-selected="false">
+          ⏳ Pending <span class="tab-count" id="cnt-pending">0</span>
+        </button>
+        <button class="status-tab" id="tab-approved" onclick="setTab('approved')" role="tab" aria-selected="false">
+          ✅ Approved <span class="tab-count" id="cnt-approved">0</span>
+        </button>
+        <button class="status-tab" id="tab-shipped"  onclick="setTab('shipped')"  role="tab" aria-selected="false">
+          📦 Shipped <span class="tab-count" id="cnt-shipped">0</span>
+        </button>
+        <button class="status-tab" id="tab-rejected" onclick="setTab('rejected')" role="tab" aria-selected="false">
+          ❌ Rejected <span class="tab-count" id="cnt-rejected">0</span>
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-card" role="region" id="requests-panel" aria-label="Purchase requests">
+        <div class="table-card-header">
+          <div class="table-card-title" id="table-section-title">All Requests</div>
+          <div class="table-card-actions">
+            <div class="search-bar">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <label for="order-search" class="sr-only">Search orders</label>
+              <input type="search" id="order-search" placeholder="Search buyer or order ID…" style="padding:0.45rem var(--space-md) 0.45rem 2.5rem;border:1.5px solid var(--color-outline-xlight);border-radius:var(--radius-md);outline:none;width:240px;" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table class="data-table" id="requests-table" aria-label="Purchase requests list">
+            <thead>
+              <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Buyer</th>
+                <th scope="col">Product</th>
+                <th scope="col">Qty</th>
+                <th scope="col">Total</th>
+                <th scope="col">Status</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="requests-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-state hidden" id="requests-empty">
+          <div class="empty-state-icon">🧾</div>
+          <h3>No requests found</h3>
+          <p>No purchase requests match the current filter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal-overlay hidden" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="order-modal-title">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <h2 class="modal-title" id="order-modal-title">Order Details</h2>
+      <button class="modal-close" onclick="NSBMModal.close('order-modal')" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="order-modal-body"><!-- Rendered by JS --></div>
+    <div class="modal-footer" id="order-modal-footer"><!-- Rendered by JS --></div>
+  </div>
+</div>
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/router.js"></script>
+<script>
+  if (sessionStorage.getItem('nsbm_admin_auth') !== 'true') window.location.replace('login.html');
+  function doLogout() { sessionStorage.clear(); window.location.replace('login.html'); }
+
+  let currentTab = 'all';
+
+  function updateCounts() {
+    const all      = NSBMStore.purchaseRequests.length;
+    const pending  = NSBMStore.purchaseRequests.filter(r => r.status === 'pending').length;
+    const approved = NSBMStore.purchaseRequests.filter(r => r.status === 'approved').length;
+    const shipped  = NSBMStore.purchaseRequests.filter(r => r.status === 'shipped').length;
+    const rejected = NSBMStore.purchaseRequests.filter(r => r.status === 'rejected').length;
+
+    document.getElementById('cnt-all').textContent      = all;
+    document.getElementById('cnt-pending').textContent  = pending;
+    document.getElementById('cnt-approved').textContent = approved;
+    document.getElementById('cnt-shipped').textContent  = shipped;
+    document.getElementById('cnt-rejected').textContent = rejected;
+    document.getElementById('pending-count-badge').textContent = `${pending} pending`;
+  }
+
+  function setTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.status-tab').forEach(t => {
+      const isActive = t.id === 'tab-' + tab;
+      t.classList.toggle('active', isActive);
+      t.setAttribute('aria-selected', isActive);
+    });
+    const labels = { all:'All Requests', pending:'Pending Requests', approved:'Approved Requests', shipped:'Shipped Orders', rejected:'Rejected Requests' };
+    document.getElementById('table-section-title').textContent = labels[tab] || 'Requests';
+    renderRequests();
+  }
+
+  function renderRequests() {
+    const q     = document.getElementById('order-search').value.toLowerCase().trim();
+    let list    = [...NSBMStore.purchaseRequests];
+    if (currentTab !== 'all') list = list.filter(r => r.status === currentTab);
+    if (q) list = list.filter(r => r.id.toLowerCase().includes(q) || r.buyer.toLowerCase().includes(q) || r.studentId.toLowerCase().includes(q));
+
+    const tbody = document.getElementById('requests-tbody');
+    const empty = document.getElementById('requests-empty');
+    tbody.innerHTML = '';
+
+    document.getElementById('request-count-label').textContent = `${list.length} request${list.length !== 1 ? 's' : ''} shown`;
+
+    if (list.length === 0) {
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+
+    list.forEach(order => {
+      const chip = NSBMStore.getStatusChip(order.status);
+      const canApprove = order.status === 'pending';
+      const canReject  = order.status === 'pending';
+      const canShip    = order.status === 'approved';
+
+      tbody.innerHTML += `
+        <tr id="order-row-${order.id}">
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="viewOrder('${order.id}')" style="font-family:monospace;font-weight:var(--fw-bold);color:var(--color-primary);padding:0">
+              ${order.id}
+            </button>
+          </td>
+          <td>
+            <div style="font-weight:var(--fw-semibold)">${order.buyer}</div>
+            <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">${order.studentId}</div>
+          </td>
+          <td style="max-width:180px">
+            <div style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:var(--font-body-sm)">${order.productName}</div>
+          </td>
+          <td style="text-align:center">${order.qty}</td>
+          <td style="font-weight:var(--fw-semibold);color:var(--color-primary)">${NSBMStore.formatPrice(order.total)}</td>
+          <td><span class="chip ${chip.cls}" id="status-chip-${order.id}">${chip.label}</span></td>
+          <td style="color:var(--color-on-surface-3);font-size:var(--font-body-sm)">${order.date}</td>
+          <td>
+            <div class="table-actions" id="actions-${order.id}">
+              ${canApprove ? `<button class="btn btn-sm" style="background:var(--color-success);color:#fff;border-color:var(--color-success)" onclick="updateStatus('${order.id}','approved')">✅ Approve</button>` : ''}
+              ${canReject  ? `<button class="btn btn-danger-outline btn-sm" onclick="updateStatus('${order.id}','rejected')">❌ Reject</button>` : ''}
+              ${canShip    ? `<button class="btn btn-sm" style="background:var(--color-info);color:#fff;border-color:var(--color-info)" onclick="updateStatus('${order.id}','shipped')">📦 Mark Shipped</button>` : ''}
+              ${(!canApprove && !canReject && !canShip) ? '<span style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">No actions</span>' : ''}
+            </div>
+          </td>
+        </tr>`;
+    });
+  }
+
+  function updateStatus(orderId, newStatus) {
+    NSBMStore.updateOrderStatus(orderId, newStatus);
+    NSBMToast.success(`Order ${orderId} marked as ${newStatus}.`);
+    updateCounts();
+    renderRequests();
+    NSBMModal.close('order-modal');
+  }
+
+  function viewOrder(orderId) {
+    const order = NSBMStore.purchaseRequests.find(r => r.id === orderId);
+    if (!order) return;
+    const chip = NSBMStore.getStatusChip(order.status);
+
+    document.getElementById('order-modal-title').textContent = `Order ${order.id}`;
+    document.getElementById('order-modal-body').innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-lg)">
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Buyer</p>
+          <p style="font-weight:var(--fw-semibold)">${order.buyer}</p>
+        </div>
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Student ID</p>
+          <p style="font-weight:var(--fw-semibold)">${order.studentId}</p>
+        </div>
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Email</p>
+          <p>${order.email}</p>
+        </div>
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Date</p>
+          <p>${order.date}</p>
+        </div>
+        <div class="full-width" style="grid-column:1/-1">
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Product</p>
+          <p style="font-weight:var(--fw-semibold)">${order.productName}</p>
+        </div>
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Quantity</p>
+          <p style="font-weight:var(--fw-semibold)">${order.qty}</p>
+        </div>
+        <div>
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Total</p>
+          <p style="font-weight:var(--fw-bold);font-size:var(--font-title-lg);color:var(--color-primary)">${NSBMStore.formatPrice(order.total)}</p>
+        </div>
+        <div style="grid-column:1/-1">
+          <p style="font-size:var(--font-label-md);color:var(--color-on-surface-3)">Current Status</p>
+          <span class="chip ${chip.cls}">${chip.label}</span>
+        </div>
+      </div>`;
+
+    const footer = document.getElementById('order-modal-footer');
+    footer.innerHTML = `<button class="btn btn-ghost" onclick="NSBMModal.close('order-modal')">Close</button>`;
+    if (order.status === 'pending') {
+      footer.innerHTML += `
+        <button class="btn btn-danger-outline" onclick="updateStatus('${order.id}','rejected')">❌ Reject</button>
+        <button class="btn btn-primary" onclick="updateStatus('${order.id}','approved')">✅ Approve</button>`;
+    } else if (order.status === 'approved') {
+      footer.innerHTML += `<button class="btn btn-primary" style="background:var(--color-info);border-color:var(--color-info)" onclick="updateStatus('${order.id}','shipped')">📦 Mark Shipped</button>`;
+    }
+
+    NSBMModal.open('order-modal');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(sessionStorage.getItem('nsbm_admin_user') || '{}');
+    if (user.name)     document.getElementById('user-name').textContent   = user.name;
+    if (user.initials) document.getElementById('user-avatar').textContent = user.initials;
+
+    updateCounts();
+    renderRequests();
+
+    document.getElementById('order-search').addEventListener('input', debounce(renderRequests, 300));
+  });
+</script>
+</body>
+</html>

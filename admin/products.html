@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage Products — NSBM Admin Portal">
+  <title>Manage Products — NSBM Admin Portal</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">GS</div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">Mini Store</div>
+        <div class="sidebar-brand-sub">Admin Portal</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="dashboard.html"         class="sidebar-link" id="sl-dashboard"><span class="sidebar-icon">📊</span> Dashboard</a>
+        <a href="products.html"          class="sidebar-link active" id="sl-products"><span class="sidebar-icon">📦</span> Manage Products</a>
+        <a href="purchase-requests.html" class="sidebar-link" id="sl-orders"><span class="sidebar-icon">🧾</span> Purchase Requests</a>
+      </div>
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Actions</div>
+        <a href="add-product.html" class="sidebar-link"><span class="sidebar-icon">➕</span> Add Product</a>
+        <a href="../index.html"    class="sidebar-link" target="_blank"><span class="sidebar-icon">🏪</span> View Store</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="user-avatar">A</div>
+        <div>
+          <div class="sidebar-user-name" id="user-name">Admin</div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="doLogout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-topbar-title">Manage Products</div>
+        <div class="admin-topbar-subtitle" id="product-count-label">Loading…</div>
+      </div>
+      <div class="admin-topbar-actions">
+        <a href="add-product.html" class="btn btn-primary btn-sm">➕ Add Product</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div class="table-card" role="region" aria-label="Products table">
+        <div class="table-card-header">
+          <div class="table-card-title">All Products</div>
+          <div class="table-card-actions" style="flex:1;max-width:320px">
+            <div class="search-bar" style="flex:1">
+              <span class="search-icon" aria-hidden="true">🔍</span>
+              <label for="admin-search" class="sr-only">Search products</label>
+              <input type="search" id="admin-search" placeholder="Search products…" style="width:100%;padding:0.5rem var(--space-md) 0.5rem 2.5rem;border:1.5px solid var(--color-outline-xlight);border-radius:var(--radius-md);outline:none;" autocomplete="off">
+            </div>
+          </div>
+          <div>
+            <label for="cat-filter" class="sr-only">Filter by category</label>
+            <select id="cat-filter" class="form-control" style="width:auto;padding:0.5rem var(--space-lg) 0.5rem var(--space-md)">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto">
+          <table class="data-table" id="products-table" aria-label="Products list">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Category</th>
+                <th scope="col">Price</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Seller</th>
+                <th scope="col">Status</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-state hidden" id="admin-empty-state">
+          <div class="empty-state-icon">📦</div>
+          <h3>No products found</h3>
+          <p>Try a different search or <a href="add-product.html" style="color:var(--color-primary)">add a new product</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay hidden" id="delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="delete-modal-title">Delete Product?</h2>
+      <button class="modal-close" onclick="NSBMModal.close('delete-modal')" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <strong id="delete-product-name"></strong>? This action cannot be undone.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="NSBMModal.close('delete-modal')">Cancel</button>
+      <button class="btn btn-danger" id="confirm-delete-btn">Delete Product</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/router.js"></script>
+<script>
+  if (sessionStorage.getItem('nsbm_admin_auth') !== 'true') window.location.replace('login.html');
+  function doLogout() { sessionStorage.clear(); window.location.replace('login.html'); }
+
+  let pendingDeleteId = null;
+
+  function renderProducts(list) {
+    const tbody = document.getElementById('products-tbody');
+    const empty = document.getElementById('admin-empty-state');
+    tbody.innerHTML = '';
+
+    if (list.length === 0) {
+      empty.classList.remove('hidden');
+      document.querySelector('.data-table thead').style.display = 'none';
+      return;
+    }
+
+    empty.classList.add('hidden');
+    document.querySelector('.data-table thead').style.display = '';
+
+    list.forEach(p => {
+      const cat   = NSBMStore.categories.find(c => c.id === p.category) || {};
+      const stock = NSBMStore.getStockChip(p.stock);
+      tbody.innerHTML += `
+        <tr id="row-${p.id}">
+          <td>
+            <div class="product-table-info">
+              <div class="product-thumb">
+                <img src="${p.image}" alt="${p.name}" loading="lazy">
+              </div>
+              <div>
+                <div class="product-table-name">${p.name}</div>
+                <div class="product-table-id">${p.id}</div>
+              </div>
+            </div>
+          </td>
+          <td><span class="chip chip-primary">${cat.icon || ''} ${cat.name || p.category}</span></td>
+          <td style="font-weight:var(--fw-semibold);color:var(--color-primary)">${NSBMStore.formatPrice(p.price)}</td>
+          <td>
+            <span class="chip chip-${stock.cls === 'in-stock' ? 'success' : stock.cls === 'low-stock' ? 'warning' : 'danger'}">${p.stock} — ${stock.label}</span>
+          </td>
+          <td>${p.seller}</td>
+          <td><span class="chip ${p.stock > 0 ? 'chip-success' : 'chip-danger'}">${p.stock > 0 ? 'Active' : 'Unavailable'}</span></td>
+          <td>
+            <div class="table-actions">
+              <a href="add-product.html?editId=${p.id}" class="btn btn-outline btn-sm" title="Edit product">✏️ Edit</a>
+              <button class="btn btn-danger-outline btn-sm" onclick="promptDelete('${p.id}','${p.name.replace(/'/g,"\\'")}')">🗑️ Delete</button>
+            </div>
+          </td>
+        </tr>`;
+    });
+
+    document.getElementById('product-count-label').textContent = `${list.length} product${list.length !== 1 ? 's' : ''} found`;
+  }
+
+  function promptDelete(productId, productName) {
+    pendingDeleteId = productId;
+    document.getElementById('delete-product-name').textContent = productName;
+    document.getElementById('confirm-delete-btn').onclick = confirmDelete;
+    NSBMModal.open('delete-modal');
+  }
+
+  function confirmDelete() {
+    if (!pendingDeleteId) return;
+    const ok = NSBMStore.deleteProduct(pendingDeleteId);
+    if (ok) {
+      NSBMModal.close('delete-modal');
+      NSBMToast.success('Product deleted successfully.');
+      applyFilters();
+    } else {
+      NSBMToast.error('Could not delete product.');
+    }
+    pendingDeleteId = null;
+  }
+
+  function applyFilters() {
+    const q   = document.getElementById('admin-search').value.toLowerCase().trim();
+    const cat = document.getElementById('cat-filter').value;
+    let list  = [...NSBMStore.products];
+    if (q)   list = list.filter(p => p.name.toLowerCase().includes(q) || p.seller.toLowerCase().includes(q));
+    if (cat) list = list.filter(p => p.category === cat);
+    renderProducts(list);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(sessionStorage.getItem('nsbm_admin_user') || '{}');
+    if (user.name) document.getElementById('user-name').textContent = user.name;
+    if (user.initials) document.getElementById('user-avatar').textContent = user.initials;
+
+    // Populate category filter
+    const catFilter = document.getElementById('cat-filter');
+    NSBMStore.categories.filter(c => c.id !== 'all').forEach(cat => {
+      catFilter.innerHTML += `<option value="${cat.id}">${cat.icon} ${cat.name}</option>`;
+    });
+
+    renderProducts(NSBMStore.products);
+
+    const search = document.getElementById('admin-search');
+    search.addEventListener('input', debounce(applyFilters, 300));
+    catFilter.addEventListener('change', applyFilters);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Add or Edit Product — NSBM Admin Portal">
+  <title>Add Product — NSBM Admin Portal</title>
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Admin navigation">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" aria-hidden="true">GS</div>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-name">Mini Store</div>
+        <div class="sidebar-brand-sub">Admin Portal</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Main</div>
+        <a href="dashboard.html"         class="sidebar-link"><span class="sidebar-icon">📊</span> Dashboard</a>
+        <a href="products.html"          class="sidebar-link"><span class="sidebar-icon">📦</span> Manage Products</a>
+        <a href="purchase-requests.html" class="sidebar-link"><span class="sidebar-icon">🧾</span> Purchase Requests</a>
+      </div>
+      <div class="sidebar-nav-section">
+        <div class="sidebar-nav-label">Actions</div>
+        <a href="add-product.html" class="sidebar-link active"><span class="sidebar-icon">➕</span> Add Product</a>
+        <a href="../index.html"    class="sidebar-link" target="_blank"><span class="sidebar-icon">🏪</span> View Store</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar" id="user-avatar">A</div>
+        <div>
+          <div class="sidebar-user-name" id="user-name">Admin</div>
+          <div class="sidebar-user-role">Administrator</div>
+        </div>
+      </div>
+      <button class="sidebar-logout-btn" onclick="doLogout()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <div class="admin-topbar-title" id="page-title">Add New Product</div>
+        <div class="admin-topbar-subtitle" id="page-subtitle">Fill in the details below to list a new product</div>
+      </div>
+      <div class="admin-topbar-actions">
+        <a href="products.html" class="btn btn-ghost btn-sm">← Back to Products</a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-xl);align-items:start">
+
+        <!-- Form -->
+        <div class="form-card">
+          <div class="form-card-header">
+            <div class="form-card-title" id="form-card-title">Product Information</div>
+          </div>
+          <div class="form-card-body">
+            <form id="product-form" novalidate>
+              <div class="admin-form-grid">
+                <div class="form-group full-width">
+                  <label class="form-label" for="prod-name">Product Name *</label>
+                  <input type="text" id="prod-name" class="form-control" placeholder="e.g. Handcrafted Macramé Wall Hanging" required>
+                  <span class="form-error hidden" id="err-name">Product name is required</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="prod-price">Price (LKR) *</label>
+                  <div class="input-group">
+                    <span class="input-icon" style="font-size:0.8rem;font-weight:700;color:var(--color-on-surface-3)">Rs.</span>
+                    <input type="number" id="prod-price" class="form-control" placeholder="1500" min="0" step="1" required>
+                  </div>
+                  <span class="form-error hidden" id="err-price">Please enter a valid price</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="prod-stock">Stock Quantity *</label>
+                  <input type="number" id="prod-stock" class="form-control" placeholder="10" min="0" step="1" required>
+                  <span class="form-error hidden" id="err-stock">Please enter stock quantity</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="prod-category">Category *</label>
+                  <select id="prod-category" class="form-control" required>
+                    <option value="">Select a category…</option>
+                  </select>
+                  <span class="form-error hidden" id="err-category">Please select a category</span>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="prod-seller">Seller Name *</label>
+                  <input type="text" id="prod-seller" class="form-control" placeholder="e.g. Kavya Perera" required>
+                  <span class="form-error hidden" id="err-seller">Seller name is required</span>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label" for="prod-description">Description *</label>
+                  <textarea id="prod-description" class="form-control" rows="5" placeholder="Describe the product in detail — materials, dimensions, how it was made, etc." required></textarea>
+                  <span class="form-error hidden" id="err-description">Description must be at least 20 characters</span>
+                </div>
+
+                <div class="form-group full-width">
+                  <label class="form-label" for="prod-image">Image URL</label>
+                  <input type="url" id="prod-image" class="form-control" placeholder="https://images.unsplash.com/…" oninput="previewImage()">
+                  <span class="form-hint">Paste a direct image URL (Unsplash, etc.)</span>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="form-card-footer">
+            <a href="products.html" class="btn btn-ghost">Cancel</a>
+            <button class="btn btn-primary" id="save-btn" onclick="saveProduct()">
+              💾 Save Product
+            </button>
+          </div>
+        </div>
+
+        <!-- Preview Panel -->
+        <div style="position:sticky;top:calc(64px + var(--space-lg))">
+          <div class="form-card">
+            <div class="form-card-header">
+              <div class="form-card-title">Image Preview</div>
+            </div>
+            <div class="form-card-body" style="padding:var(--space-md)">
+              <div class="img-preview-box" id="img-preview-box">
+                <span class="upload-icon" aria-hidden="true">🖼️</span>
+                <span>Paste an image URL above to preview</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-card" style="margin-top:var(--space-md)">
+            <div class="form-card-header">
+              <div class="form-card-title">Tips</div>
+            </div>
+            <div class="form-card-body">
+              <ul style="display:flex;flex-direction:column;gap:var(--space-sm);font-size:var(--font-body-sm);color:var(--color-on-surface-2)">
+                <li>✅ Use high-quality photos (min 600×600px)</li>
+                <li>✅ Write a detailed description to attract buyers</li>
+                <li>✅ Set accurate stock to avoid overselling</li>
+                <li>🔗 Free images: <a href="https://unsplash.com" target="_blank" rel="noopener" style="color:var(--color-primary)">unsplash.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="../js/data.js"></script>
+<script src="../js/router.js"></script>
+<script>
+  if (sessionStorage.getItem('nsbm_admin_auth') !== 'true') window.location.replace('login.html');
+  function doLogout() { sessionStorage.clear(); window.location.replace('login.html'); }
+
+  let editId = null;
+
+  function previewImage() {
+    const url = document.getElementById('prod-image').value.trim();
+    const box = document.getElementById('img-preview-box');
+    if (url) {
+      box.innerHTML = `<img src="${url}" alt="Product preview" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<span style=\\'color:var(--color-danger)\\'>Invalid image URL</span>'">`;
+    } else {
+      box.innerHTML = '<span class="upload-icon" aria-hidden="true">🖼️</span><span>Paste an image URL above to preview</span>';
+    }
+  }
+
+  function validateForm() {
+    const fields = [
+      { id: 'prod-name',        errId: 'err-name',        check: v => v.trim().length >= 3              },
+      { id: 'prod-price',       errId: 'err-price',       check: v => !isNaN(v) && parseFloat(v) > 0   },
+      { id: 'prod-stock',       errId: 'err-stock',       check: v => !isNaN(v) && parseInt(v) >= 0    },
+      { id: 'prod-category',    errId: 'err-category',    check: v => v !== ''                          },
+      { id: 'prod-seller',      errId: 'err-seller',      check: v => v.trim().length >= 2              },
+      { id: 'prod-description', errId: 'err-description', check: v => v.trim().length >= 20             },
+    ];
+    let ok = true;
+    fields.forEach(({ id, errId, check }) => {
+      const input = document.getElementById(id);
+      const err   = document.getElementById(errId);
+      if (!check(input.value)) {
+        input.classList.add('error');
+        err.classList.remove('hidden');
+        ok = false;
+      } else {
+        input.classList.remove('error');
+        err.classList.add('hidden');
+      }
+    });
+    return ok;
+  }
+
+  function saveProduct() {
+    if (!validateForm()) {
+      NSBMToast.error('Please fix the errors above.');
+      return;
+    }
+    const btn = document.getElementById('save-btn');
+    btn.textContent = 'Saving…';
+    btn.disabled = true;
+
+    const payload = {
+      name:        document.getElementById('prod-name').value.trim(),
+      price:       parseFloat(document.getElementById('prod-price').value),
+      stock:       parseInt(document.getElementById('prod-stock').value),
+      category:    document.getElementById('prod-category').value,
+      seller:      document.getElementById('prod-seller').value.trim(),
+      description: document.getElementById('prod-description').value.trim(),
+      image:       document.getElementById('prod-image').value.trim() ||
+                   `https://picsum.photos/seed/${Date.now()}/600/400`,
+      sellerId:    's_admin',
+    };
+
+    setTimeout(() => {
+      if (editId) {
+        NSBMStore.updateProduct(editId, payload);
+        NSBMToast.success('Product updated successfully!');
+      } else {
+        NSBMStore.addProduct(payload);
+        NSBMToast.success('Product added successfully!');
+      }
+      setTimeout(() => window.location.replace('products.html'), 1200);
+    }, 700);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(sessionStorage.getItem('nsbm_admin_user') || '{}');
+    if (user.name)     document.getElementById('user-name').textContent   = user.name;
+    if (user.initials) document.getElementById('user-avatar').textContent = user.initials;
+
+    // Populate categories
+    const catSel = document.getElementById('prod-category');
+    NSBMStore.categories.filter(c => c.id !== 'all').forEach(c => {
+      catSel.innerHTML += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+    });
+
+    // Edit mode?
+    editId = NSBMRouter.getParam('editId');
+    if (editId) {
+      const product = NSBMStore.getProductById(editId);
+      if (product) {
+        document.getElementById('page-title').textContent     = 'Edit Product';
+        document.getElementById('page-subtitle').textContent  = `Editing: ${product.name}`;
+        document.getElementById('form-card-title').textContent = 'Edit Product';
+        document.getElementById('save-btn').textContent       = '💾 Update Product';
+        document.title = `Edit: ${product.name} — Admin`;
+
+        document.getElementById('prod-name').value        = product.name;
+        document.getElementById('prod-price').value       = product.price;
+        document.getElementById('prod-stock').value       = product.stock;
+        document.getElementById('prod-category').value    = product.category;
+        document.getElementById('prod-seller').value      = product.seller;
+        document.getElementById('prod-description').value = product.description;
+        document.getElementById('prod-image').value       = product.image;
+        previewImage();
+      }
+    }
+
+    // Clear errors on input
+    document.querySelectorAll('.form-control').forEach(el => {
+      el.addEventListener('input', () => {
+        el.classList.remove('error');
+        const err = document.getElementById('err-' + el.id.replace('prod-', ''));
+        if (err) err.classList.add('hidden');
+      });
+    });
+  });
+</script>
+</body>
+</html>

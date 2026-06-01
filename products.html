@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse all student-made products at NSBM Green Mini Store — handmade crafts, baked goods, digital art, accessories, and study essentials.">
+  <title>Browse Products — NSBM Green Mini Store</title>
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/storefront.css">
+</head>
+<body>
+
+<!-- ── Navbar ──────────────────────────────────────────────────── -->
+<header class="navbar" role="banner">
+  <div class="container">
+    <a href="index.html" class="navbar-brand" aria-label="NSBM Green Mini Store Home">
+      <div class="brand-logo" aria-hidden="true">GS</div>
+      <span>NSBM Mini Store</span>
+    </a>
+    <nav class="navbar-nav" aria-label="Main navigation">
+      <a href="index.html"    class="nav-link" id="nav-home">Home</a>
+      <a href="products.html" class="nav-link" id="nav-products">Products</a>
+      <a href="products.html?cat=handmade"   class="nav-link">Handmade</a>
+      <a href="products.html?cat=baked"      class="nav-link">Baked Goods</a>
+      <a href="products.html?cat=study"      class="nav-link">Study</a>
+    </nav>
+    <div class="navbar-actions">
+      <a href="checkout.html" class="cart-btn" id="cart-btn" aria-label="View cart">
+        🛒 Cart
+        <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
+      </a>
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <a href="index.html"    class="nav-link">🏠 Home</a>
+  <a href="products.html" class="nav-link">🛍️ All Products</a>
+  <a href="products.html?cat=handmade"    class="nav-link">🎨 Handmade Crafts</a>
+  <a href="products.html?cat=baked"       class="nav-link">🍰 Baked Goods</a>
+  <a href="products.html?cat=study"       class="nav-link">📚 Study Essentials</a>
+  <a href="products.html?cat=digital"     class="nav-link">🖼️ Digital Art</a>
+  <a href="products.html?cat=accessories" class="nav-link">💍 Accessories</a>
+</nav>
+
+<main id="main-content">
+  <!-- ── Page Header ────────────────────────────────────────────── -->
+  <div class="page-header">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="sep" aria-hidden="true">›</span>
+        <span aria-current="page">Products</span>
+      </nav>
+      <h1 style="font-size:var(--font-headline-lg);font-weight:var(--fw-extrabold)">Explore Products</h1>
+      <p style="color:var(--color-on-surface-3);margin-top:var(--space-xs)">
+        <span id="results-count">Loading...</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Filter Bar ─────────────────────────────────────────────── -->
+  <div style="background:var(--color-surface-2);border-bottom:1px solid var(--color-outline-xlight);position:sticky;top:var(--navbar-height);z-index:var(--z-raised);">
+    <div class="container">
+      <div class="filter-bar">
+        <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by category">
+          <!-- Rendered by JS -->
+        </div>
+        <div class="filter-spacer"></div>
+
+        <div class="search-bar">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <label for="search-input" class="sr-only">Search products</label>
+          <input type="search" id="search-input" class="" placeholder="Search products…" autocomplete="off">
+        </div>
+
+        <div class="filter-sort">
+          <label for="sort-select">Sort:</label>
+          <select id="sort-select" class="form-control" style="width:auto;padding:0.4rem var(--space-lg) 0.4rem var(--space-md);">
+            <option value="default">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Product Grid ───────────────────────────────────────────── -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="products-grid" id="products-grid" aria-label="Products" aria-live="polite">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="empty-state hidden" id="empty-state" role="status">
+        <div class="empty-state-icon">🔍</div>
+        <h3>No products found</h3>
+        <p>Try a different search term or category filter.</p>
+        <button class="btn btn-primary" onclick="clearFilters()" id="clear-filters-btn">Clear Filters</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────────────── -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-logo" aria-hidden="true">GS</div>
+        <div class="footer-brand-name">NSBM Green Mini Store</div>
+        <p class="footer-brand-desc">A student-powered marketplace at NSBM Green University.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="products.html">All Products</a></li>
+          <li><a href="products.html?cat=handmade">Handmade Crafts</a></li>
+          <li><a href="products.html?cat=baked">Baked Goods</a></li>
+          <li><a href="products.html?cat=study">Study Essentials</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Returns Policy</a></li>
+          <li><a href="#">Contact Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>NSBM</h4>
+        <ul>
+          <li><a href="https://www.nsbm.ac.lk" target="_blank" rel="noopener">NSBM Website</a></li>
+          <li><a href="admin/login.html">Admin Portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 NSBM Green Mini Store. All rights reserved.</span>
+      <span>Built by NSBM Students 💚</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast-container" aria-live="polite"></div>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/router.js"></script>
+<script>
+  let currentCategory = 'all';
+  let currentSearch   = '';
+  let currentSort     = 'default';
+
+  function getFilteredProducts() {
+    let list = currentSearch
+      ? NSBMStore.searchProducts(currentSearch)
+      : NSBMStore.getProductsByCategory(currentCategory);
+
+    if (currentSearch && currentCategory !== 'all') {
+      list = list.filter(p => p.category === currentCategory);
+    }
+
+    switch (currentSort) {
+      case 'price-asc':  list = [...list].sort((a,b) => a.price - b.price); break;
+      case 'price-desc': list = [...list].sort((a,b) => b.price - a.price); break;
+      case 'rating':     list = [...list].sort((a,b) => b.rating - a.rating); break;
+      case 'name':       list = [...list].sort((a,b) => a.name.localeCompare(b.name)); break;
+      default:           list = [...list].sort((a,b) => (b.featured ? 1:0) - (a.featured ? 1:0)); break;
+    }
+    return list;
+  }
+
+  function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    const empty = document.getElementById('empty-state');
+    const list = getFilteredProducts();
+    grid.innerHTML = '';
+
+    if (list.length === 0) {
+      grid.classList.add('hidden');
+      empty.classList.remove('hidden');
+    } else {
+      grid.classList.remove('hidden');
+      empty.classList.add('hidden');
+      list.forEach(p => { grid.innerHTML += renderProductCard(p); });
+    }
+
+    const catLabel = currentCategory === 'all' ? 'All Products' : NSBMStore.categories.find(c => c.id === currentCategory)?.name;
+    document.getElementById('results-count').textContent = `${list.length} product${list.length !== 1 ? 's' : ''} in ${catLabel}`;
+  }
+
+  function setCategory(catId) {
+    currentCategory = catId;
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    const active = document.getElementById('chip-' + catId);
+    if (active) active.classList.add('active');
+    NSBMRouter.setParam('cat', catId);
+    renderProducts();
+  }
+
+  function clearFilters() {
+    currentCategory = 'all';
+    currentSearch   = '';
+    currentSort     = 'default';
+    document.getElementById('search-input').value = '';
+    document.getElementById('sort-select').value  = 'default';
+    setCategory('all');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Build category filter chips
+    const chips = document.getElementById('filter-chips');
+    NSBMStore.categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-chip' + (cat.id === 'all' ? ' active' : '');
+      btn.id = 'chip-' + cat.id;
+      btn.textContent = cat.id === 'all' ? '🛍️ All' : `${cat.icon} ${cat.name}`;
+      btn.onclick = () => setCategory(cat.id);
+      btn.setAttribute('aria-pressed', cat.id === 'all' ? 'true' : 'false');
+      chips.appendChild(btn);
+    });
+
+    // URL param: ?cat=
+    const urlCat = NSBMRouter.getParam('cat') || 'all';
+    setCategory(urlCat);
+
+    // Search
+    const searchInput = document.getElementById('search-input');
+    searchInput.addEventListener('input', debounce(e => {
+      currentSearch = e.target.value.trim();
+      renderProducts();
+    }, 300));
+
+    // Sort
+    document.getElementById('sort-select').addEventListener('change', e => {
+      currentSort = e.target.value;
+      renderProducts();
+    });
+  });
+</script>
+</body>
+</html>
