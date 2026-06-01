@@ -1,5 +1,5 @@
 <?php
-// NS SHOP - Verify NSBM Student ID against official registry
+// NSBM Creators Hub - Verify NSBM Student ID against official registry
 
 require_once __DIR__ . '/../db.php';
 require_once __DIR__ . '/nsbm_student.php';

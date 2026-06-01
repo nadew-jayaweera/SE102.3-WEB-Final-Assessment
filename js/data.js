@@ -1,4 +1,4 @@
-// NS SHOP - Central Data Fetcher & AJAX Engine
+// NSBM Creators Hub - Central Data Fetcher & AJAX Engine
 // Saved at /d:/Project/Web/code/js/data.js
 
 (function () {

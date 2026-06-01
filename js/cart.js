@@ -1,4 +1,4 @@
-// NS SHOP - E-Commerce Client Cart Engine
+// NSBM Creators Hub - E-Commerce Client Cart Engine
 // Saved at /d:/Project/Web/code/js/cart.js
 
 (function () {

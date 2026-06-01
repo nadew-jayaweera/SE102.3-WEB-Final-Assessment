@@ -1,5 +1,5 @@
 <?php
-// NS SHOP - Products REST API
+// NSBM Creators Hub - Products REST API
 // Saved at /d:/Project/Web/code/api/products.php
 
 require_once __DIR__ . '/../db.php';

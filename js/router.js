@@ -1,4 +1,4 @@
-// NS SHOP - Query Parameter & Router State Coordinator
+// NSBM Creators Hub - Query Parameter & Router State Coordinator
 // Saved at /d:/Project/Web/code/js/router.js
 
 (function () {

@@ -1,4 +1,4 @@
-// NS SHOP - E-Commerce Customer Storefront Page Controller
+// NSBM Creators Hub - E-Commerce Customer Storefront Page Controller
 // Saved at /d:/Project/Web/code/js/storefront.js
 
 (function () {
