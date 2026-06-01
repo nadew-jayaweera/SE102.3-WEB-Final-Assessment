@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `purchase_requests` (
     `id` VARCHAR(15) PRIMARY KEY,
     `customer_name` VARCHAR(100) NOT NULL,
     `nsbm_id` VARCHAR(20) NOT NULL,
+    `student_batch` VARCHAR(50) NULL COMMENT 'NSBM intake/batch from registry',
     `email` VARCHAR(100) NOT NULL,
     `phone` VARCHAR(20) NOT NULL,
     `payment_method` ENUM('cash', 'bank') NOT NULL,

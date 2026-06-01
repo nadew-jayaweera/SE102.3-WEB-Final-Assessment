@@ -434,7 +434,7 @@
                         <td style="padding: 16px; font-weight: 700; color: var(--color-primary-container);">${req.id}</td>
                         <td style="padding: 16px;">
                             <div style="font-weight: 600; color: var(--color-on-surface);">${req.customer_name}</div>
-                            <div style="font-size: 12px; color: var(--color-on-surface-variant);">ID: ${req.nsbm_id}</div>
+                            <div style="font-size: 12px; color: var(--color-on-surface-variant);">ID: ${req.nsbm_id}${req.student_batch ? ` · Batch: ${req.student_batch}` : ''}</div>
                         </td>
                         <td style="padding: 16px; font-size: 13px; color: var(--color-on-surface-variant);" title="${itemsDesc.replace(/<br>/g, "\n").replace(/"/g, '&quot;')}">
                             <div style="max-height: 48px; overflow: hidden; text-overflow: ellipsis;">

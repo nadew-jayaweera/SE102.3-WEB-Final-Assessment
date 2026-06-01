@@ -3,6 +3,7 @@
 // Saved at /d:/Project/Web/code/api/checkout.php
 
 require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '/nsbm_student.php';
 
 // Handle CORS Options preflight request
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
@@ -30,6 +31,28 @@ if (empty($customerName) || empty($nsbmId) || empty($email) || empty($phone) || 
 
 if ($paymentMethod !== 'cash' && $paymentMethod !== 'bank') {
     sendJSON(['status' => 'error', 'message' => 'Invalid payment method.'], 400);
+}
+
+try {
+    $registryStudent = lookupNsbmStudent($nsbmId);
+    if ($registryStudent === null) {
+        sendJSON([
+            'status' => 'error',
+            'message' => 'Student ID could not be verified with NSBM. Please verify your ID before submitting.',
+        ], 400);
+    }
+    if (!nsbmStudentNameMatches($customerName, $registryStudent['name'])) {
+        sendJSON([
+            'status' => 'error',
+            'message' => 'Student name does not match the NSBM registry record for this ID.',
+        ], 400);
+    }
+    $studentBatch = $registryStudent['batch'];
+} catch (RuntimeException $e) {
+    sendJSON([
+        'status' => 'error',
+        'message' => 'Student verification service unavailable. Please try again shortly.',
+    ], 502);
 }
 
 try {
@@ -91,20 +114,40 @@ try {
     }
 
     // C. Insert Purchase Request header row
-    $reqStmt = $pdo->prepare('
-        INSERT INTO `purchase_requests` (`id`, `customer_name`, `nsbm_id`, `email`, `phone`, `payment_method`, `total`, `status`)
-        VALUES (:id, :customer_name, :nsbm_id, :email, :phone, :payment_method, :total, :status)
-    ');
-    $reqStmt->execute([
-        ':id' => $requestId,
-        ':customer_name' => $customerName,
-        ':nsbm_id' => $nsbmId,
-        ':email' => $email,
-        ':phone' => $phone,
-        ':payment_method' => $paymentMethod,
-        ':total' => $total,
-        ':status' => 'Pending'
-    ]);
+    $hasBatchColumn = (bool) $pdo->query("SHOW COLUMNS FROM `purchase_requests` LIKE 'student_batch'")->fetch();
+
+    if ($hasBatchColumn) {
+        $reqStmt = $pdo->prepare('
+            INSERT INTO `purchase_requests` (`id`, `customer_name`, `nsbm_id`, `student_batch`, `email`, `phone`, `payment_method`, `total`, `status`)
+            VALUES (:id, :customer_name, :nsbm_id, :student_batch, :email, :phone, :payment_method, :total, :status)
+        ');
+        $reqStmt->execute([
+            ':id' => $requestId,
+            ':customer_name' => $customerName,
+            ':nsbm_id' => $nsbmId,
+            ':student_batch' => $studentBatch,
+            ':email' => $email,
+            ':phone' => $phone,
+            ':payment_method' => $paymentMethod,
+            ':total' => $total,
+            ':status' => 'Pending',
+        ]);
+    } else {
+        $reqStmt = $pdo->prepare('
+            INSERT INTO `purchase_requests` (`id`, `customer_name`, `nsbm_id`, `email`, `phone`, `payment_method`, `total`, `status`)
+            VALUES (:id, :customer_name, :nsbm_id, :email, :phone, :payment_method, :total, :status)
+        ');
+        $reqStmt->execute([
+            ':id' => $requestId,
+            ':customer_name' => $customerName,
+            ':nsbm_id' => $nsbmId,
+            ':email' => $email,
+            ':phone' => $phone,
+            ':payment_method' => $paymentMethod,
+            ':total' => $total,
+            ':status' => 'Pending',
+        ]);
+    }
 
     // D. Insert request line items and decrement product inventory
     $itemStmt = $pdo->prepare('
@@ -147,6 +190,7 @@ try {
             'id' => $requestId,
             'customerName' => $customerName,
             'nsbmId' => $nsbmId,
+            'studentBatch' => $studentBatch,
             'email' => $email,
             'phone' => $phone,
             'paymentMethod' => $paymentMethod,

@@ -250,6 +250,99 @@
     box-shadow: var(--shadow-level-1);
 }
 
+/* --- Checkout: NSBM student ID verification --- */
+.student-verify-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.student-verify-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+@media (min-width: 520px) {
+    .student-verify-row {
+        flex-direction: row;
+        align-items: stretch;
+    }
+    .student-verify-row .input-field {
+        flex: 1;
+    }
+}
+
+.student-verify-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 16px;
+    white-space: nowrap;
+    border-radius: var(--radius-lg);
+}
+@media (min-width: 520px) {
+    .student-verify-btn {
+        flex-shrink: 0;
+    }
+}
+
+.student-verify-hint {
+    font-size: 12px;
+    color: var(--color-on-surface-variant);
+    line-height: 1.4;
+}
+
+.student-verify-result {
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    border: 1px solid var(--color-outline-variant);
+}
+
+.student-verify-result--success {
+    background-color: rgba(145, 247, 142, 0.2);
+    border-color: var(--color-secondary-container);
+    color: var(--color-on-surface);
+}
+
+.student-verify-result--error {
+    background-color: var(--color-error-container);
+    border-color: var(--color-error);
+    color: var(--color-on-error-container);
+}
+
+.student-verify-result__title {
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.student-verify-result__meta {
+    display: grid;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.student-verify-result__meta dt {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-on-surface-variant);
+}
+
+.student-verify-result__meta dd {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    margin: 0 0 4px;
+}
+
 /* --- About page layout --- */
 .about-main {
     flex-grow: 1;

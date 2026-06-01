@@ -1,7 +1,7 @@
 /* NS SHOP - Core Design System & Base Resets */
 /* Saved at /d:/Project/Web/code/css/design-system.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
     /* --- Harmonic Colors (Institutional Green Theme) --- */
@@ -87,7 +87,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--color-background);
     color: var(--color-on-background);
     line-height: 1.5;

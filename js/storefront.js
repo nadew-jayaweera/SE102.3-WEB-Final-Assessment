@@ -304,6 +304,103 @@
         summaryList.innerHTML = html;
         totalSpan.innerText = "LKR " + subtotal.toLocaleString('en-US', { minimumFractionDigits: 2 });
 
+        let verifiedStudent = null;
+        const nsbmIdInput = document.getElementById("nsbm-id");
+        const verifyBtn = document.getElementById("verify-student-btn");
+        const verifyResult = document.getElementById("student-verify-result");
+        const customerNameInput = document.getElementById("customer-name");
+        const emailInput = document.getElementById("email");
+
+        function clearStudentVerification() {
+            verifiedStudent = null;
+            if (verifyResult) {
+                verifyResult.hidden = true;
+                verifyResult.innerHTML = "";
+                verifyResult.className = "student-verify-result";
+            }
+        }
+
+        function renderVerificationSuccess(student) {
+            if (!verifyResult) return;
+            const batchLabel = student.batch
+                ? `<div><dt>Batch (Intake)</dt><dd>${escapeHtml(student.batch)}</dd></div>`
+                : `<div><dt>Batch (Intake)</dt><dd>Not listed</dd></div>`;
+            verifyResult.className = "student-verify-result student-verify-result--success";
+            verifyResult.hidden = false;
+            verifyResult.innerHTML = `
+                <div class="student-verify-result__title">
+                    <span class="material-symbols-outlined" style="font-size: 20px; color: var(--color-secondary);">check_circle</span>
+                    Student verified
+                </div>
+                <p style="margin: 0; font-size: 13px;">Registry record found. Details below have been applied to your request.</p>
+                <dl class="student-verify-result__meta">
+                    <div><dt>Registered name</dt><dd>${escapeHtml(student.name)}</dd></div>
+                    ${batchLabel}
+                    <div><dt>Programme</dt><dd>${escapeHtml(student.degree || "—")}</dd></div>
+                </dl>
+            `;
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        function namesRoughlyMatch(entered, official) {
+            const norm = (s) => s.toLowerCase().trim().replace(/^(mr|mrs|ms|miss|dr)\.?\s+/i, "").replace(/\s+/g, " ");
+            const a = norm(entered);
+            const b = norm(official);
+            return a && b && (a === b || b.includes(a) || a.includes(b));
+        }
+
+        if (nsbmIdInput) {
+            nsbmIdInput.addEventListener("input", () => {
+                if (verifiedStudent && nsbmIdInput.value.trim() !== verifiedStudent.umisid) {
+                    clearStudentVerification();
+                }
+            });
+        }
+
+        if (verifyBtn) {
+            verifyBtn.addEventListener("click", async () => {
+                const umisid = nsbmIdInput?.value.trim() || "";
+                if (!umisid) {
+                    window.NSBM.showToast("Enter your NSBM Student ID first.", "error");
+                    return;
+                }
+
+                verifyBtn.disabled = true;
+                const label = verifyBtn.querySelector("span:last-child");
+                const prevLabel = label?.textContent || "Verify ID";
+                if (label) label.textContent = "Verifying…";
+
+                const result = await window.NSBM.verifyStudent(umisid);
+
+                verifyBtn.disabled = false;
+                if (label) label.textContent = prevLabel;
+
+                if (result?.status === "success" && result.student) {
+                    verifiedStudent = result.student;
+                    renderVerificationSuccess(result.student);
+                    if (customerNameInput && result.student.name) {
+                        customerNameInput.value = result.student.name;
+                    }
+                    if (emailInput && result.student.email && !emailInput.value.trim()) {
+                        emailInput.value = result.student.email;
+                    }
+                    window.NSBM.showToast("Student ID verified.", "success");
+                } else if (verifyResult) {
+                    verifyResult.className = "student-verify-result student-verify-result--error";
+                    verifyResult.hidden = false;
+                    verifyResult.innerHTML = `<strong>Verification failed</strong><p style="margin: 6px 0 0;">${escapeHtml(result?.message || "Student not found in NSBM registry.")}</p>`;
+                    verifiedStudent = null;
+                }
+            });
+        }
+
         // Bind Checkout Form Submission Event Handler
         if (checkoutForm) {
             checkoutForm.addEventListener("submit", async (e) => {
@@ -318,6 +415,16 @@
                 // Validations
                 if (!customerName || !nsbmId || !email || !phone) {
                     window.NSBM.showToast("All fields are required.", "error");
+                    return;
+                }
+
+                if (!verifiedStudent || verifiedStudent.umisid !== nsbmId) {
+                    window.NSBM.showToast("Please verify your NSBM Student ID before submitting.", "error");
+                    return;
+                }
+
+                if (!namesRoughlyMatch(customerName, verifiedStudent.name)) {
+                    window.NSBM.showToast("Student name must match the verified registry record.", "error");
                     return;
                 }
 
@@ -357,6 +464,10 @@
                         document.getElementById("success-req-id").innerText = order.id;
                         document.getElementById("success-student-name").innerText = order.customerName;
                         document.getElementById("success-student-id").innerText = order.nsbmId;
+                        const batchEl = document.getElementById("success-student-batch");
+                        if (batchEl) {
+                            batchEl.innerText = order.studentBatch || verifiedStudent?.batch || "—";
+                        }
                         document.getElementById("success-total").innerText = "LKR " + totalFormatted;
                         document.getElementById("success-payment").innerText = order.paymentMethod === "cash" ? "Cash on Pickup" : "Bank Transfer Slip";
                         

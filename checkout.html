@@ -52,11 +52,17 @@
                         <input type="text" id="customer-name" class="input-field" required placeholder="Kasun Perera">
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
-                        <div>
-                            <label for="nsbm-id" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">NSBM Student ID *</label>
-                            <input type="text" id="nsbm-id" class="input-field" required placeholder="1002934">
+                    <div class="student-verify-block">
+                        <label for="nsbm-id" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">NSBM Student ID *</label>
+                        <div class="student-verify-row">
+                            <input type="text" id="nsbm-id" class="input-field" required placeholder="34565" autocomplete="off">
+                            <button type="button" id="verify-student-btn" class="btn btn-secondary student-verify-btn">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">verified_user</span>
+                                <span>Verify ID</span>
+                            </button>
                         </div>
+                        <p class="student-verify-hint">Verify your ID with the official NSBM student registry before submitting.</p>
+                        <div id="student-verify-result" class="student-verify-result" hidden aria-live="polite"></div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
@@ -123,6 +129,7 @@
                     <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Request Order ID</span><strong style="color: var(--color-primary-container);" id="success-req-id"></strong></div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Student Name</span><strong id="success-student-name"></strong></div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Student ID</span><strong id="success-student-id"></strong></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Batch (Intake)</span><strong id="success-student-batch"></strong></div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Total Billing</span><strong style="color: var(--color-primary);" id="success-total"></strong></div>
                     <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Payment method</span><strong id="success-payment"></strong></div>
                 </div>

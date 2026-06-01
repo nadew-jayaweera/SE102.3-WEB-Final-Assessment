@@ -15,7 +15,7 @@
         if (!container) {
             container = document.createElement("div");
             container.id = "nsbm-toast-container";
-            container.style.cssText = "position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; font-family: 'Inter', sans-serif;";
+            container.style.cssText = "position: fixed; bottom: 20px; right: 20px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; pointer-events: none; font-family: 'Montserrat', sans-serif;";
             document.body.appendChild(container);
         }
 
@@ -241,6 +241,26 @@
         },
 
         // 3. CHECKOUT & ORDERS API WRAPPERS
+        async verifyStudent(umisid) {
+            try {
+                const response = await fetch(`${pathPrefix}api/verify_student.php`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ umisid: String(umisid).trim() }),
+                });
+                const result = await response.json();
+                if (response.ok && result.status === 'success') {
+                    return result;
+                }
+                const message = result.message || 'Student ID could not be verified.';
+                showToast(message, response.status === 404 ? 'info' : 'error');
+                return { ...result, status: result.status || 'error', message };
+            } catch (err) {
+                showToast('Unable to reach student verification service.', 'error');
+                return { status: 'error', message: err.message, available: false };
+            }
+        },
+
         async createRequest(orderData) {
             try {
                 const response = await fetch(`${pathPrefix}api/checkout.php`, {
