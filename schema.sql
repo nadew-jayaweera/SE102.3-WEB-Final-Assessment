@@ -1,4 +1,4 @@
--- NSBM Mini Store - Database Schema & Data Seeding
+-- NS SHOP - Database Schema & Data Seeding
 -- Saved at /d:/Project/Web/code/schema.sql
 
 CREATE DATABASE IF NOT EXISTS `nsbm_ministore` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;

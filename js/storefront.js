@@ -1,4 +1,4 @@
-// NSBM Mini Store - E-Commerce Customer Storefront Page Controller
+// NS SHOP - E-Commerce Customer Storefront Page Controller
 // Saved at /d:/Project/Web/code/js/storefront.js
 
 (function () {

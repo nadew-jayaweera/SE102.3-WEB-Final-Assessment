@@ -1,5 +1,5 @@
 <?php
-// NSBM Mini Store - Checkout Transaction REST API
+// NS SHOP - Checkout Transaction REST API
 // Saved at /d:/Project/Web/code/api/checkout.php
 
 require_once __DIR__ . '/../db.php';

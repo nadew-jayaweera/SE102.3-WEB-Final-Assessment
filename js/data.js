@@ -1,4 +1,4 @@
-// NSBM Mini Store - Central Data Fetcher & AJAX Engine
+// NS SHOP - Central Data Fetcher & AJAX Engine
 // Saved at /d:/Project/Web/code/js/data.js
 
 (function () {

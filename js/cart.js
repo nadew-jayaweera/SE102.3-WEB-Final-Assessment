@@ -1,4 +1,4 @@
-// NSBM Mini Store - E-Commerce Client Cart Engine
+// NS SHOP - E-Commerce Client Cart Engine
 // Saved at /d:/Project/Web/code/js/cart.js
 
 (function () {

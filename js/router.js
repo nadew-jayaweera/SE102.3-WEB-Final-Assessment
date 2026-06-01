@@ -1,4 +1,4 @@
-// NSBM Mini Store - Query Parameter & Router State Coordinator
+// NS SHOP - Query Parameter & Router State Coordinator
 // Saved at /d:/Project/Web/code/js/router.js
 
 (function () {

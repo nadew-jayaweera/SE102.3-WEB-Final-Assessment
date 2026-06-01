@@ -1,5 +1,5 @@
 <?php
-// NSBM Mini Store - Authentication REST API
+// NS SHOP - Authentication REST API
 // Saved at /d:/Project/Web/code/api/auth.php
 
 require_once __DIR__ . '/../db.php';
