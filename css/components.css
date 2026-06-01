@@ -391,7 +391,7 @@
     font-weight: 600;
 }
 .pill-pending { background-color: var(--color-error-container); color: var(--color-on-error-container); }
-.pill-approved { background-color: var(--color-primary-fixed); color: var(--color-on-primary-fixed-variant); }
+.pill-approved { background-color: var(--color-primary-fixed); color: var(--color-on-primary-fixed); }
 .pill-completed { background-color: var(--color-secondary-container); color: var(--color-on-secondary-container); }
 .pill-cancelled { background-color: var(--color-surface-container-highest); color: var(--color-on-surface-variant); }
 

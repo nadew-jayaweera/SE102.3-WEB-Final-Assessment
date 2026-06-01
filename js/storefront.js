@@ -48,7 +48,7 @@
             html += `
                 <div class="product-card">
                     <div class="product-card-image-wrap">
-                        <img src="${product.image}" alt="${product.name}" class="product-card-image" />
+                        <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" class="product-card-image" />
                         <span class="product-card-badge ${badgeClass}">${product.category}</span>
                         ${isOutOfStock ? `
                             <div class="out-of-stock-overlay">
@@ -123,7 +123,7 @@
                 html += `
                     <div class="product-card">
                         <div class="product-card-image-wrap">
-                            <img src="${product.image}" alt="${product.name}" class="product-card-image" />
+                            <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" class="product-card-image" />
                             <span class="product-card-badge ${badgeClass}">${product.category}</span>
                             ${isOutOfStock ? `
                                 <div class="out-of-stock-overlay">
@@ -291,7 +291,7 @@
 
             html += `
                 <div style="display: flex; gap: 12px; align-items: center; border-bottom: 1px solid var(--color-outline-variant); padding-bottom: 12px; margin-bottom: 12px;">
-                    <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; background-color: var(--color-surface-container-high);" />
+                    <img src="${item.image}" alt="${item.name.replace(/"/g, '&quot;')}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; background-color: var(--color-surface-container-high);" />
                     <div style="flex-grow: 1;">
                         <h4 style="font-size: 13px; font-weight: 600; color: var(--color-on-surface); line-clamp: 1;">${item.name}</h4>
                         <p style="font-size: 12px; color: var(--color-on-surface-variant); margin: 0;">LKR ${priceFormatted} x ${item.qty}</p>

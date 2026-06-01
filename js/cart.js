@@ -148,7 +148,7 @@
 
                     html += `
                         <div style="background-color: var(--color-surface); border: 1px solid var(--color-outline-variant); padding: 12px; border-radius: 12px; display: flex; gap: 12px; align-items: center; position: relative; margin-bottom: 12px; box-shadow: var(--shadow-level-1);">
-                            <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; background-color: var(--color-surface-container-low); flex-shrink: 0;" />
+                            <img src="${item.image}" alt="${item.name.replace(/"/g, '&quot;')}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px; background-color: var(--color-surface-container-low); flex-shrink: 0;" />
                             <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 4px;">
                                 <h4 style="font-size: 13px; font-weight: 600; color: var(--color-on-surface); padding-right: 20px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 180px;">${item.name}</h4>
                                 <p style="font-size: 13px; color: var(--color-primary); font-weight: 700; margin: 0;">LKR ${priceFormatted}</p>

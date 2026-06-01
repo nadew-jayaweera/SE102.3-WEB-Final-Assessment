@@ -154,7 +154,7 @@
             html += `
                 <tr ${rowBgStyle}>
                     <td style="padding: 16px; display: flex; align-items: center; gap: 12px; font-weight: 500;">
-                        <img src="${product.image}" alt="${product.name}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
+                        <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
                         <span>${product.name}</span>
                     </td>
                     <td style="padding: 16px; color: var(--color-on-surface-variant);">LKR ${priceFormatted}</td>
@@ -204,7 +204,7 @@
                 html += `
                     <tr ${rowBgStyle}>
                         <td style="padding: 16px; display: flex; align-items: center; gap: 12px; font-weight: 500;">
-                            <img src="${product.image}" alt="${product.name}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
+                            <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
                             <span>${product.name}</span>
                         </td>
                         <td style="padding: 16px; color: var(--color-on-surface-variant);">${product.category}</td>
@@ -221,7 +221,7 @@
                             <a href="add-product.html?edit=${product.id}" class="btn-icon" style="display: inline-flex;" title="Edit">
                                 <span class="material-symbols-outlined" style="font-size: 20px;">edit</span>
                             </a>
-                            <button onclick="NSBM_Admin.confirmDelete('${product.id}', '${product.name.replace(/'/g, "\\'")}')" class="btn-icon" style="color: var(--color-error);" title="Delete">
+                            <button onclick="NSBM_Admin.confirmDelete('${product.id}', '${product.name.replace(/'/g, "\\'").replace(/"/g, '&quot;')}')" class="btn-icon" style="color: var(--color-error);" title="Delete">
                                 <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
                             </button>
                         </td>
@@ -436,7 +436,7 @@
                             <div style="font-weight: 600; color: var(--color-on-surface);">${req.customer_name}</div>
                             <div style="font-size: 12px; color: var(--color-on-surface-variant);">ID: ${req.nsbm_id}</div>
                         </td>
-                        <td style="padding: 16px; font-size: 13px; color: var(--color-on-surface-variant);" title="${itemsDesc.replace(/<br>/g, "\n")}">
+                        <td style="padding: 16px; font-size: 13px; color: var(--color-on-surface-variant);" title="${itemsDesc.replace(/<br>/g, "\n").replace(/"/g, '&quot;')}">
                             <div style="max-height: 48px; overflow: hidden; text-overflow: ellipsis;">
                                 ${itemsDesc}
                             </div>
