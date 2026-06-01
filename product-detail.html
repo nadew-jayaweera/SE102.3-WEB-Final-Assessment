@@ -1,315 +1,108 @@
 <!DOCTYPE html>
+<!-- NSBM Mini Store - Product Detailed Card -->
+<!-- Saved at /d:/Project/Web/code/product-detail.html -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="View product details at NSBM Green Mini Store.">
-  <title>Product Detail — NSBM Green Mini Store</title>
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/storefront.css">
-  <style>
-    .rating-stars { color: #f59e0b; font-size: 1rem; letter-spacing: 2px; }
-    .rating-count { color: var(--color-on-surface-3); font-size: var(--font-label-sm); }
-    .share-btn { background: var(--color-surface-3); border: 1.5px solid var(--color-outline-xlight); border-radius: var(--radius-md); padding: var(--space-xs) var(--space-md); cursor: pointer; font-size: var(--font-body-sm); transition: all var(--transition-fast); }
-    .share-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
-    .not-found { text-align: center; padding: var(--space-4xl) var(--space-xl); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSBM Mini Store - Product Details</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/storefront.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
 <body>
 
-<!-- Navbar -->
-<header class="navbar" role="banner">
-  <div class="container">
-    <a href="index.html" class="navbar-brand">
-      <div class="brand-logo" aria-hidden="true">GS</div>
-      <span>NSBM Mini Store</span>
-    </a>
-    <nav class="navbar-nav" aria-label="Main navigation">
-      <a href="index.html"    class="nav-link">Home</a>
-      <a href="products.html" class="nav-link">Products</a>
-      <a href="products.html?cat=handmade" class="nav-link">Handmade</a>
-      <a href="products.html?cat=baked"    class="nav-link">Baked Goods</a>
-      <a href="products.html?cat=study"    class="nav-link">Study</a>
-    </nav>
-    <div class="navbar-actions">
-      <a href="checkout.html" class="cart-btn" aria-label="View cart">
-        🛒 Cart
-        <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
-      </a>
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
-<nav class="mobile-nav" id="mobile-nav">
-  <a href="index.html"    class="nav-link">🏠 Home</a>
-  <a href="products.html" class="nav-link">🛍️ All Products</a>
-</nav>
-
-<main id="main-content">
-  <!-- ── Product Detail Content (rendered by JS) ──────────────── -->
-  <div id="product-content"></div>
-  <div id="related-section" class="hidden">
-    <div style="background:var(--color-surface-3)">
-      <section class="section" aria-labelledby="related-title">
-        <div class="container">
-          <div class="section-header">
-            <span class="section-overline">You might also like</span>
-            <h2 class="section-title" id="related-title">Related Products</h2>
-          </div>
-          <div class="products-grid" id="related-grid" aria-label="Related products"></div>
+    <!-- Dynamic Header Navigation Bar -->
+    <header class="header-container">
+        <div class="header-wrap">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
+                <span>NSBM Mini Store</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link active">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+            
+            <!-- Actions Section -->
+            <div class="flex" style="display: flex; align-items: center; gap: 12px;">
+                <a href="admin/login.html" class="btn btn-secondary" style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
+            </div>
         </div>
-      </section>
-    </div>
-  </div>
-</main>
+    </header>
 
-<!-- Tab Panels -->
-<div id="tab-template" class="hidden">
-  <section class="section-sm">
-    <div class="container">
-      <div class="product-detail-tabs" role="tablist">
-        <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="tab-desc"    id="tab-btn-desc"    onclick="switchTab('desc')">Description</button>
-        <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-seller"  id="tab-btn-seller"  onclick="switchTab('seller')">Seller Info</button>
-        <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-reviews" id="tab-btn-reviews" onclick="switchTab('reviews')">Reviews</button>
-      </div>
-      <div id="tab-desc" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-desc"></div>
-      <div id="tab-seller" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-seller"></div>
-      <div id="tab-reviews" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-reviews"></div>
-    </div>
-  </section>
-</div>
-
-<!-- Footer -->
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand-logo" aria-hidden="true">GS</div>
-        <div class="footer-brand-name">NSBM Green Mini Store</div>
-        <p class="footer-brand-desc">A student-powered marketplace at NSBM Green University.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <ul>
-          <li><a href="products.html">All Products</a></li>
-          <li><a href="products.html?cat=handmade">Handmade Crafts</a></li>
-          <li><a href="products.html?cat=baked">Baked Goods</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">Returns Policy</a></li>
-          <li><a href="#">Contact Support</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>NSBM</h4>
-        <ul>
-          <li><a href="https://www.nsbm.ac.lk" target="_blank" rel="noopener">NSBM Website</a></li>
-          <li><a href="admin/login.html">Admin Portal</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2024 NSBM Green Mini Store. All rights reserved.</span>
-      <span>Built by NSBM Students 💚</span>
-    </div>
-  </div>
-</footer>
-
-<div class="toast-container" aria-live="polite"></div>
-
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/router.js"></script>
-<script>
-  function switchTab(name) {
-    document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.toggle('active', b.id === 'tab-btn-' + name);
-      b.setAttribute('aria-selected', b.id === 'tab-btn-' + name);
-    });
-    document.querySelectorAll('.tab-panel').forEach(p => {
-      p.classList.toggle('active', p.id === 'tab-' + name);
-    });
-  }
-
-  function changeQty(delta) {
-    const input = document.getElementById('qty-input');
-    const maxStock = parseInt(input.max);
-    let val = parseInt(input.value) + delta;
-    val = Math.max(1, Math.min(val, maxStock));
-    input.value = val;
-  }
-
-  function addToCartFromDetail() {
-    const productId = NSBMRouter.getParam('id');
-    const qty = parseInt(document.getElementById('qty-input').value);
-    for (let i = 0; i < qty; i++) NSBMCart.addToCart(productId);
-    NSBMToast.success(`${qty} item(s) added to cart! 🛒`);
-    const btn = document.getElementById('add-to-cart-btn');
-    btn.textContent = '✓ Added to Cart';
-    btn.style.background = 'var(--color-success)';
-    setTimeout(() => {
-      btn.textContent = '🛒 Add to Cart';
-      btn.style.background = '';
-    }, 2000);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const productId = NSBMRouter.getParam('id');
-    const content = document.getElementById('product-content');
-
-    if (!productId) {
-      content.innerHTML = `<div class="container not-found"><div style="font-size:3rem">😕</div><h1>No product selected</h1><a href="products.html" class="btn btn-primary" style="margin-top:var(--space-lg)">Browse Products</a></div>`;
-      return;
-    }
-
-    const product = NSBMStore.getProductById(productId);
-    if (!product) {
-      content.innerHTML = `<div class="container not-found"><div style="font-size:3rem">🔍</div><h1>Product not found</h1><a href="products.html" class="btn btn-primary" style="margin-top:var(--space-lg)">Back to Products</a></div>`;
-      return;
-    }
-
-    document.title = `${product.name} — NSBM Green Mini Store`;
-    const catLabel = NSBMStore.categories.find(c => c.id === product.category)?.name || product.category;
-    const stock = NSBMStore.getStockChip(product.stock);
-    const stars = '★'.repeat(Math.round(product.rating)) + '☆'.repeat(5 - Math.round(product.rating));
-
-    content.innerHTML = `
-      <div class="page-header">
-        <div class="container">
-          <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="index.html">Home</a>
-            <span class="sep" aria-hidden="true">›</span>
-            <a href="products.html">Products</a>
-            <span class="sep" aria-hidden="true">›</span>
-            <a href="products.html?cat=${product.category}">${catLabel}</a>
-            <span class="sep" aria-hidden="true">›</span>
-            <span aria-current="page">${product.name}</span>
-          </nav>
+    <!-- Main Detail split view -->
+    <main style="flex-grow: 1; max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-margin-mobile); width: 100%; display: flex; flex-direction: column; gap: var(--spacing-md);">
+        
+        <!-- Back to browse catalog navigation -->
+        <div>
+            <a href="products.html" style="display: inline-flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 600; color: var(--color-on-surface-variant); hover:text-primary;" class="text-on-surface-variant">
+                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                <span>Back to Products catalog</span>
+            </a>
         </div>
-      </div>
 
-      <div class="container">
-        <div class="product-detail-hero">
-          <!-- Gallery -->
-          <div class="product-detail-gallery">
-            <div class="product-detail-main-img">
-              <img src="${product.image}" alt="${product.name}" id="main-product-img">
-            </div>
-          </div>
-
-          <!-- Meta -->
-          <div class="product-detail-meta">
-            <span class="chip chip-primary">${catLabel}</span>
-            <h1 style="font-size:var(--font-headline-md);font-weight:var(--fw-extrabold);margin:var(--space-md) 0 var(--space-xs)">${product.name}</h1>
-
-            <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-md)">
-              <span class="rating-stars" aria-label="${product.rating} out of 5 stars">${stars}</span>
-              <span class="rating-count">${product.rating} (${product.reviews} reviews)</span>
-              <span class="chip ${product.stock === 0 ? 'chip-danger' : product.stock <= 5 ? 'chip-warning' : 'chip-success'}">${stock.label}</span>
+        <!-- Split Grid Showcase (JS Populated) -->
+        <div class="details-container">
+            <!-- Left Side Image -->
+            <div class="details-image-card">
+                <img id="product-image" src="" alt="" class="details-image">
             </div>
 
-            <div class="product-detail-price">
-              ${NSBMStore.formatPrice(product.price)}
-              <small>LKR</small>
-            </div>
+            <!-- Right Side Info -->
+            <div class="details-info">
+                <div>
+                    <span id="product-category" class="product-card-badge" style="position: static; display: inline-block; margin-bottom: 8px;"></span>
+                    <h1 id="product-name" style="font-size: 32px; font-weight: 700; color: var(--color-on-surface); line-height: 1.2; margin-bottom: 8px;">Loading product...</h1>
+                    <span id="product-price" style="font-size: 24px; font-weight: 700; color: var(--color-primary); display: block; margin-bottom: 12px;">LKR 0.00</span>
+                </div>
 
-            <div class="product-seller-card">
-              <div class="seller-avatar">${product.seller.charAt(0)}</div>
-              <div>
-                <div class="seller-name">${product.seller}</div>
-                <div class="seller-label">NSBM Student Seller</div>
-              </div>
-              <span class="chip chip-secondary" style="margin-left:auto">Verified ✓</span>
-            </div>
+                <div id="product-quantity" style="margin-bottom: var(--spacing-sm);">
+                    <!-- Stock tag dynamically loaded -->
+                </div>
 
-            <div class="qty-selector">
-              <label for="qty-input">Quantity:</label>
-              <div class="qty-control">
-                <button class="qty-btn" onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
-                <input type="number" class="qty-input" id="qty-input" value="1" min="1" max="${product.stock}" aria-label="Quantity">
-                <button class="qty-btn" onclick="changeQty(1)" aria-label="Increase quantity">+</button>
-              </div>
-              ${product.stock > 0 ? `<span style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">${product.stock} available</span>` : ''}
-            </div>
+                <div style="border-top: 1px solid var(--color-outline-variant); border-bottom: 1px solid var(--color-outline-variant); padding: 16px 0; margin-bottom: var(--spacing-sm);">
+                    <h3 style="font-size: 14px; font-weight: 600; text-transform: uppercase; color: var(--color-on-surface-variant); margin-bottom: 8px; letter-spacing: 0.05em;">Product Description</h3>
+                    <p id="product-desc" style="font-size: 14px; color: var(--color-on-surface-variant); line-height: 1.6;">Loading info...</p>
+                </div>
 
-            <div class="product-detail-actions">
-              <button id="add-to-cart-btn" class="btn btn-primary btn-lg" style="flex:1"
-                ${product.stock === 0 ? 'disabled' : ''}
-                onclick="addToCartFromDetail()">
-                ${product.stock === 0 ? '❌ Out of Stock' : '🛒 Add to Cart'}
-              </button>
-              <button class="share-btn" onclick="navigator.clipboard?.writeText(window.location.href); NSBMToast.info('Link copied!')" title="Share product" aria-label="Share product link">🔗</button>
+                <div>
+                    <button id="product-action-btn" class="btn btn-primary" style="width: 100%; padding: 14px;">Add to Cart</button>
+                </div>
             </div>
-
-            <div style="margin-top:var(--space-lg);padding:var(--space-md);background:var(--color-primary-surface);border-radius:var(--radius-md);font-size:var(--font-body-sm)">
-              🌿 <strong>Free delivery</strong> on orders above Rs. 2,000 · 📦 Campus pickup available
-            </div>
-          </div>
         </div>
-      </div>
 
-      <!-- Tabs -->
-      <section class="section-sm">
-        <div class="container">
-          <div class="product-detail-tabs" role="tablist">
-            <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="tab-desc"    id="tab-btn-desc"    onclick="switchTab('desc')">Description</button>
-            <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-seller"  id="tab-btn-seller"  onclick="switchTab('seller')">Seller Info</button>
-            <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="tab-reviews" id="tab-btn-reviews" onclick="switchTab('reviews')">Reviews (${product.reviews})</button>
-          </div>
-          <div id="tab-desc" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-desc">
-            <p style="line-height:var(--lh-relaxed);color:var(--color-on-surface-2)">${product.description}</p>
-            <div style="margin-top:var(--space-lg);display:flex;flex-wrap:wrap;gap:var(--space-xs)">
-              ${product.tags.map(t => `<span class="chip chip-neutral">#${t}</span>`).join('')}
+    </main>
+
+    <!-- Footer Area -->
+    <footer style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center; margin-top: auto;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: center; gap: 16px;">
+            <div style="text-align: left;">
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM Mini Store</h3>
+                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and handmade craftsmanship.</p>
             </div>
-          </div>
-          <div id="tab-seller" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-seller">
-            <div style="display:flex;align-items:center;gap:var(--space-lg);padding:var(--space-lg);background:var(--color-surface-3);border-radius:var(--radius-lg)">
-              <div class="seller-avatar" style="width:64px;height:64px;font-size:1.6rem">${product.seller.charAt(0)}</div>
-              <div>
-                <div style="font-size:var(--font-title-lg);font-weight:var(--fw-bold)">${product.seller}</div>
-                <div style="color:var(--color-on-surface-3);margin-bottom:var(--space-sm)">NSBM Student Seller · ${catLabel}</div>
-                <span class="chip chip-success">✓ Verified Student</span>
-              </div>
+            <div style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
+                <a href="#" class="text-primary-container">Campus Map</a>
+                <a href="#" class="text-primary-container">Contact Us</a>
+                <a href="#" class="text-primary-container">Terms</a>
             </div>
-          </div>
-          <div id="tab-reviews" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-reviews">
-            <div style="display:flex;align-items:center;gap:var(--space-xl);padding:var(--space-xl);background:var(--color-surface-3);border-radius:var(--radius-lg);margin-bottom:var(--space-lg)">
-              <div style="text-align:center">
-                <div style="font-size:3rem;font-weight:var(--fw-extrabold);color:var(--color-primary)">${product.rating}</div>
-                <div class="rating-stars">${stars}</div>
-                <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">${product.reviews} reviews</div>
-              </div>
-              <div style="flex:1">
-                ${[5,4,3,2,1].map(n => `
-                  <div style="display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xs)">
-                    <span style="font-size:var(--font-label-sm);width:12px">${n}</span>
-                    <div style="flex:1;height:8px;background:var(--color-outline-xlight);border-radius:var(--radius-full);overflow:hidden">
-                      <div style="height:100%;background:var(--color-secondary);border-radius:var(--radius-full);width:${n===5?'70':n===4?'20':n===3?'7':n===2?'2':'1'}%"></div>
-                    </div>
-                  </div>`).join('')}
-              </div>
-            </div>
-            <p style="color:var(--color-on-surface-3);text-align:center">Customer reviews are displayed after purchase verification.</p>
-          </div>
         </div>
-      </section>
-    `;
+        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2024 NSBM Mini Store. All rights reserved.</p>
+    </footer>
 
-    // Related products
-    const related = NSBMStore.getRelatedProducts(productId, 3);
-    if (related.length > 0) {
-      const relSection = document.getElementById('related-section');
-      const relGrid = document.getElementById('related-grid');
-      relSection.classList.remove('hidden');
-      related.forEach(p => { relGrid.innerHTML += renderProductCard(p); });
-    }
-  });
-</script>
+    <!-- Asynchronous JS Modules -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/storefront.js"></script>
 </body>
 </html>

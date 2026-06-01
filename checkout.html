@@ -1,303 +1,168 @@
 <!DOCTYPE html>
+<!-- NSBM Mini Store - E-Commerce Checkout Portal -->
+<!-- Saved at /d:/Project/Web/code/checkout.html -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Complete your purchase at NSBM Green Mini Store.">
-  <title>Checkout — NSBM Green Mini Store</title>
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/storefront.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSBM Mini Store - Student Checkout</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/storefront.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
 <body>
 
-<!-- Navbar -->
-<header class="navbar" role="banner">
-  <div class="container">
-    <a href="index.html" class="navbar-brand">
-      <div class="brand-logo" aria-hidden="true">GS</div>
-      <span>NSBM Mini Store</span>
-    </a>
-    <div class="navbar-actions">
-      <span style="font-size:var(--font-body-sm);color:var(--color-on-surface-3)">🔒 Secure Checkout</span>
-    </div>
-  </div>
-</header>
+    <!-- Dynamic Header Navigation Bar -->
+    <header class="header-container">
+        <div class="header-wrap">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
+                <span>NSBM Mini Store</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+            
+            <!-- Actions Section -->
+            <div class="flex" style="display: flex; align-items: center; gap: 12px;">
+                <a href="admin/login.html" class="btn btn-secondary" style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
+            </div>
+        </div>
+    </header>
 
-<main id="main-content">
-  <!-- Page Header -->
-  <div class="page-header">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="index.html">Home</a>
-        <span class="sep" aria-hidden="true">›</span>
-        <a href="products.html">Products</a>
-        <span class="sep" aria-hidden="true">›</span>
-        <span aria-current="page">Checkout</span>
-      </nav>
-      <h1 style="font-size:var(--font-headline-lg);font-weight:var(--fw-extrabold)">Checkout</h1>
-    </div>
-  </div>
+    <!-- Main Checkout container -->
+    <main style="flex-grow: 1; max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-margin-mobile); width: 100%;">
+        
+        <!-- Two Column Billing Grid -->
+        <div class="checkout-container">
+            
+            <!-- Left Side: Billing details Form card -->
+            <div class="checkout-form-card">
+                <h2 style="font-size: 24px; font-weight: 700; color: var(--color-on-surface); margin-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-outline-variant); padding-bottom: var(--spacing-xs);">Billing & Student Details</h2>
+                
+                <form id="checkout-form" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <label for="customer-name" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Student Full Name *</label>
+                        <input type="text" id="customer-name" class="input-field" required placeholder="Kasun Perera">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                        <div>
+                            <label for="nsbm-id" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">NSBM Student ID *</label>
+                            <input type="text" id="nsbm-id" class="input-field" required placeholder="1002934">
+                        </div>
+                    </div>
 
-  <!-- Empty Cart State -->
-  <div id="empty-cart" class="container hidden">
-    <div class="empty-state">
-      <div class="empty-state-icon">🛒</div>
-      <h2>Your cart is empty</h2>
-      <p>Add some products to your cart before checking out.</p>
-      <a href="products.html" class="btn btn-primary btn-lg">Browse Products</a>
-    </div>
-  </div>
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
+                        <div>
+                            <label for="email" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Email Address *</label>
+                            <input type="email" id="email" class="input-field" required placeholder="kasun@student.nsbm.ac.lk">
+                        </div>
+                        <div>
+                            <label for="phone" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Phone Number *</label>
+                            <input type="tel" id="phone" class="input-field" required placeholder="0771234567">
+                        </div>
+                    </div>
 
-  <!-- Checkout Layout -->
-  <div class="container" id="checkout-layout" style="padding-bottom:var(--space-3xl)">
-    <div class="checkout-layout">
+                    <div style="border-top: 1px solid var(--color-outline-variant); padding-top: 16px; margin-top: 8px;">
+                        <h3 style="font-size: 14px; font-weight: 600; color: var(--color-on-surface); margin-bottom: 12px;">Payment Method</h3>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; color: var(--color-on-surface);">
+                                <input type="radio" name="payment-method" value="cash" checked style="accent-color: var(--color-primary-container);">
+                                <span>Cash on Pickup at Storefront</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; color: var(--color-on-surface);">
+                                <input type="radio" name="payment-method" value="bank" style="accent-color: var(--color-primary-container);">
+                                <span>Bank Transfer (Upload Slip on Pickup)</span>
+                            </label>
+                        </div>
+                    </div>
 
-      <!-- Buyer Details Form -->
-      <div>
-        <div class="checkout-form-card">
-          <div class="card-header">
-            <h2>📋 Buyer Details</h2>
-          </div>
-          <div class="card-body">
-            <form id="checkout-form" novalidate>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label class="form-label" for="first-name">First Name *</label>
-                  <input type="text" id="first-name" class="form-control" placeholder="Ashan" required autocomplete="given-name">
-                  <span class="form-error hidden" id="err-first-name">Please enter your first name</span>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 14px; margin-top: 16px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined">shopping_cart_checkout</span>
+                        <span>Submit Purchase Request</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Right Side: Order summary Card -->
+            <div class="checkout-summary-card">
+                <h2 style="font-size: 20px; font-weight: 700; color: var(--color-on-surface); margin-bottom: var(--spacing-sm); border-bottom: 1px solid var(--color-outline-variant); padding-bottom: var(--spacing-xs);">Order Summary</h2>
+                
+                <!-- Dynamic Items summary list (JS Populated) -->
+                <div id="summary-items" style="margin-bottom: var(--spacing-sm);">
+                    <!-- Filled by storefront.js -->
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="last-name">Last Name *</label>
-                  <input type="text" id="last-name" class="form-control" placeholder="Gunawardena" required autocomplete="family-name">
-                  <span class="form-error hidden" id="err-last-name">Please enter your last name</span>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: var(--color-on-surface-variant); margin-bottom: 8px;">
+                    <span>Delivery pickup</span>
+                    <span style="color: var(--color-secondary); font-weight: 600;">Free Pickup</span>
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="email">Email Address *</label>
-                  <input type="email" id="email" class="form-control" placeholder="ashan@students.nsbm.ac.lk" required autocomplete="email">
-                  <span class="form-error hidden" id="err-email">Please enter a valid email</span>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 20px; font-weight: 700; color: var(--color-on-surface); border-top: 2px dashed var(--color-outline-variant); padding-top: 12px; margin-top: 12px;">
+                    <span>Total due</span>
+                    <span id="summary-total" style="color: var(--color-primary);">LKR 0.00</span>
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="student-id">Student ID *</label>
-                  <input type="text" id="student-id" class="form-control" placeholder="NSBM/SE/2021/045" required>
-                  <span class="form-error hidden" id="err-student-id">Please enter your student ID</span>
+            </div>
+
+            <!-- Hidden Transaction Success Invoice Card (Revealed on checkout success) -->
+            <div id="checkout-success" style="display: none; grid-column: 1 / -1; width: 100%; max-width: 600px; margin: 0 auto; background-color: var(--color-surface); border: 1px solid var(--color-outline-variant); border-radius: 20px; padding: var(--spacing-md); box-shadow: var(--shadow-level-3); text-align: center;">
+                <span class="material-symbols-outlined" style="font-size: 64px; color: var(--color-secondary); margin-bottom: 16px;">check_circle</span>
+                <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface); margin-bottom: 4px;">Purchase Request Created</h2>
+                <p style="font-size: 14px; color: var(--color-on-surface-variant); margin-bottom: var(--spacing-md);">Your transaction request was successfully registered with the administration catalog.</p>
+
+                <!-- Order Receipt Details -->
+                <div style="background-color: var(--color-surface-container-low); border-radius: 12px; border: 1px solid var(--color-outline-variant); padding: 16px; text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: var(--spacing-md);">
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Request Order ID</span><strong style="color: var(--color-primary-container);" id="success-req-id"></strong></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Student Name</span><strong id="success-student-name"></strong></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Student ID</span><strong id="success-student-id"></strong></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Total Billing</span><strong style="color: var(--color-primary);" id="success-total"></strong></div>
+                    <div style="display: flex; justify-content: space-between; font-size: 13px;"><span style="color: var(--color-on-surface-variant);">Payment method</span><strong id="success-payment"></strong></div>
                 </div>
-                <div class="form-group full-width">
-                  <label class="form-label" for="address">Pickup / Delivery Address *</label>
-                  <textarea id="address" class="form-control" placeholder="Building A, Room 204, NSBM Campus" rows="3" required></textarea>
-                  <span class="form-error hidden" id="err-address">Please enter your address</span>
+
+                <!-- Static instructions -->
+                <div style="text-align: left; border-left: 4px solid var(--color-primary-container); background-color: var(--color-surface-container-low); padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: var(--spacing-md); font-size: 13px; color: var(--color-on-surface-variant); line-height: 1.5;">
+                    <strong style="color: var(--color-primary-container); display: block; margin-bottom: 4px;">Pickup Instructions:</strong>
+                    Visit the campus **NSBM Student Union Lounge Mini Store** (Block A, ground floor) during operational academic hours (Mon-Fri 09:00 AM - 04:00 PM). Please present your Student ID Card and order receipt. If paying via bank slip, provide a copy of your bank slip transaction transfer.
                 </div>
-                <div class="form-group">
-                  <label class="form-label" for="phone">Phone Number</label>
-                  <input type="tel" id="phone" class="form-control" placeholder="07X XXX XXXX" autocomplete="tel">
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="notes">Order Notes</label>
-                  <input type="text" id="notes" class="form-control" placeholder="Any special instructions…">
-                </div>
-              </div>
-            </form>
-          </div>
+
+                <a href="index.html" class="btn btn-primary" style="display: inline-flex; width: auto; padding: 10px 24px; border-radius: var(--radius-xl);">Return to Storefront</a>
+            </div>
+
         </div>
 
-        <!-- Payment Method -->
-        <div class="checkout-form-card" style="margin-top:var(--space-lg)">
-          <div class="card-header">
-            <h2>💳 Payment Method</h2>
-          </div>
-          <div class="card-body">
-            <div class="payment-options" role="radiogroup" aria-label="Select payment method">
-              <label class="payment-option selected" id="pay-cash-lbl">
-                <input type="radio" name="payment" value="cash" checked onchange="selectPayment(this)"> 
-                <div>
-                  <div class="payment-option-label">💵 Cash on Pickup</div>
-                  <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">Pay when you collect your order on campus</div>
-                </div>
-              </label>
-              <label class="payment-option" id="pay-bank-lbl">
-                <input type="radio" name="payment" value="bank" onchange="selectPayment(this)">
-                <div>
-                  <div class="payment-option-label">🏦 Bank Transfer</div>
-                  <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">Transfer to seller's bank account before delivery</div>
-                </div>
-              </label>
-              <label class="payment-option" id="pay-online-lbl">
-                <input type="radio" name="payment" value="online" onchange="selectPayment(this)">
-                <div>
-                  <div class="payment-option-label">📱 Online Payment (Card / eZ Cash)</div>
-                  <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">Pay securely online via card or mobile wallet</div>
-                </div>
-              </label>
+    </main>
+
+    <!-- Footer Area -->
+    <footer style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center; margin-top: auto;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: center; gap: 16px;">
+            <div style="text-align: left;">
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM Mini Store</h3>
+                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and handmade craftsmanship.</p>
             </div>
-          </div>
+            <div style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
+                <a href="#" class="text-primary-container">Campus Map</a>
+                <a href="#" class="text-primary-container">Contact Us</a>
+                <a href="#" class="text-primary-container">Terms</a>
+            </div>
         </div>
-      </div>
+        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2024 NSBM Mini Store. All rights reserved.</p>
+    </footer>
 
-      <!-- Order Summary -->
-      <div>
-        <div class="order-summary-card">
-          <div class="card-header">
-            <h2>🧾 Order Summary</h2>
-          </div>
-          <div class="card-body">
-            <div id="order-items">
-              <!-- Rendered by JS -->
-            </div>
-            <div style="border-top:1px solid var(--color-outline-xlight);padding-top:var(--space-md);margin-top:var(--space-md)">
-              <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="summary-subtotal" class="val">Rs. 0</span>
-              </div>
-              <div class="summary-row">
-                <span>Delivery Fee</span>
-                <span id="summary-delivery" class="val">Rs. 150</span>
-              </div>
-              <div class="summary-row" id="free-delivery-row" style="display:none">
-                <span style="color:var(--color-success)">🎉 Free delivery!</span>
-                <span style="color:var(--color-success)">– Rs. 150</span>
-              </div>
-              <div class="summary-row total">
-                <span>Total</span>
-                <span id="summary-total" class="val">Rs. 0</span>
-              </div>
-            </div>
-            <button class="btn btn-primary btn-lg btn-block" id="place-order-btn" onclick="placeOrder()" style="margin-top:var(--space-lg)">
-              ✅ Place Order
-            </button>
-            <p style="text-align:center;font-size:var(--font-label-sm);color:var(--color-on-surface-3);margin-top:var(--space-md)">
-              🔒 Your information is safe and secure
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</main>
-
-<!-- Success Modal -->
-<div class="modal-overlay hidden" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="success-title">
-  <div class="modal">
-    <div class="modal-body" style="text-align:center;padding:var(--space-3xl)">
-      <div class="success-modal-icon">🎉</div>
-      <h2 id="success-title" style="font-size:var(--font-headline-md);margin-bottom:var(--space-sm)">Order Placed!</h2>
-      <p style="color:var(--color-on-surface-3);margin-bottom:var(--space-lg)">
-        Your order has been submitted successfully. The seller will contact you within 24 hours to confirm pickup/delivery details.
-      </p>
-      <div id="success-order-id" style="font-weight:var(--fw-bold);color:var(--color-primary);margin-bottom:var(--space-xl);font-size:var(--font-title-lg)"></div>
-      <div style="display:flex;gap:var(--space-md);justify-content:center;flex-wrap:wrap">
-        <a href="products.html" class="btn btn-primary">Continue Shopping</a>
-        <a href="index.html"    class="btn btn-outline">Back to Home</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-bottom">
-      <span>© 2024 NSBM Green Mini Store. All rights reserved.</span>
-    </div>
-  </div>
-</footer>
-<div class="toast-container" aria-live="polite"></div>
-
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/router.js"></script>
-<script>
-  function selectPayment(radio) {
-    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
-    radio.closest('.payment-option').classList.add('selected');
-  }
-
-  function renderOrderSummary() {
-    const items = NSBMCart.getItems();
-    const orderItems = document.getElementById('order-items');
-    orderItems.innerHTML = '';
-
-    items.forEach(item => {
-      orderItems.innerHTML += `
-        <div class="order-item">
-          <div class="order-item-img">
-            <img src="${item.image}" alt="${item.name}" loading="lazy">
-          </div>
-          <div style="flex:1">
-            <div class="order-item-name">${item.name}</div>
-            <div class="order-item-qty">Qty: ${item.qty} · by ${item.seller}</div>
-          </div>
-          <div class="order-item-price">${NSBMStore.formatPrice(item.price * item.qty)}</div>
-        </div>`;
-    });
-
-    const sub = NSBMCart.getSubtotal();
-    const delivery = NSBMCart.getDelivery();
-    const total = NSBMCart.getTotal();
-
-    document.getElementById('summary-subtotal').textContent = NSBMStore.formatPrice(sub);
-    document.getElementById('summary-delivery').textContent = delivery === 0 ? 'FREE' : NSBMStore.formatPrice(delivery);
-    document.getElementById('summary-total').textContent    = NSBMStore.formatPrice(total);
-    document.getElementById('free-delivery-row').style.display = sub >= 2000 ? 'flex' : 'none';
-  }
-
-  function validate() {
-    const fields = [
-      { id: 'first-name',  errId: 'err-first-name',  check: v => v.trim().length >= 2     },
-      { id: 'last-name',   errId: 'err-last-name',   check: v => v.trim().length >= 2     },
-      { id: 'email',       errId: 'err-email',       check: v => /\S+@\S+\.\S+/.test(v)  },
-      { id: 'student-id',  errId: 'err-student-id',  check: v => v.trim().length >= 4     },
-      { id: 'address',     errId: 'err-address',     check: v => v.trim().length >= 10    },
-    ];
-    let ok = true;
-    fields.forEach(({ id, errId, check }) => {
-      const input = document.getElementById(id);
-      const err   = document.getElementById(errId);
-      if (!check(input.value)) {
-        input.classList.add('error');
-        err.classList.remove('hidden');
-        ok = false;
-      } else {
-        input.classList.remove('error');
-        err.classList.add('hidden');
-      }
-    });
-    return ok;
-  }
-
-  function placeOrder() {
-    if (!validate()) {
-      NSBMToast.error('Please fill in all required fields.');
-      return;
-    }
-    const btn = document.getElementById('place-order-btn');
-    btn.textContent = 'Processing…';
-    btn.disabled = true;
-
-    setTimeout(() => {
-      const orderId = 'ORD-' + Date.now().toString().slice(-6);
-      NSBMCart.clearCart();
-      document.getElementById('success-order-id').textContent = 'Order #' + orderId;
-      NSBMModal.open('success-modal');
-    }, 1200);
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    if (NSBMCart.isEmpty()) {
-      document.getElementById('empty-cart').classList.remove('hidden');
-      document.getElementById('checkout-layout').classList.add('hidden');
-    } else {
-      renderOrderSummary();
-    }
-
-    // Clear errors on input
-    document.querySelectorAll('.form-control').forEach(el => {
-      el.addEventListener('input', () => {
-        el.classList.remove('error');
-        const errId = 'err-' + el.id;
-        const err = document.getElementById(errId);
-        if (err) err.classList.add('hidden');
-      });
-    });
-  });
-</script>
+    <!-- Asynchronous JS Modules -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/storefront.js"></script>
 </body>
 </html>

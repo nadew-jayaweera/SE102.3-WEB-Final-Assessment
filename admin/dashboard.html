@@ -1,265 +1,210 @@
 <!DOCTYPE html>
+<!-- NSBM Mini Store - Admin Portal Dashboard -->
+<!-- Saved at /d:/Project/Web/code/admin/dashboard.html -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Admin Dashboard — NSBM Green Mini Store">
-  <title>Dashboard — NSBM Admin Portal</title>
-  <link rel="stylesheet" href="../css/design-system.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - NSBM Mini Store</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
-<body>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
 
-<div class="admin-layout">
-  <!-- ── Sidebar ────────────────────────────────────────────────── -->
-  <aside class="sidebar" id="sidebar" role="navigation" aria-label="Admin navigation">
-    <div class="sidebar-header">
-      <div class="sidebar-logo" aria-hidden="true">GS</div>
-      <div class="sidebar-brand">
-        <div class="sidebar-brand-name">Mini Store</div>
-        <div class="sidebar-brand-sub">Admin Portal</div>
-      </div>
+    <!-- Mobile Top Navigation Bar -->
+    <div class="admin-mobile-top-bar">
+        <span style="font-size: 16px; font-weight: 700; color: var(--color-primary);">Admin Portal</span>
+        <button class="btn-icon" style="display: flex;">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
     </div>
 
-    <nav class="sidebar-nav">
-      <div class="sidebar-nav-section">
-        <div class="sidebar-nav-label">Main</div>
-        <a href="dashboard.html"         class="sidebar-link active" id="sl-dashboard">
-          <span class="sidebar-icon" aria-hidden="true">📊</span> Dashboard
-        </a>
-        <a href="products.html"          class="sidebar-link" id="sl-products">
-          <span class="sidebar-icon" aria-hidden="true">📦</span> Manage Products
-        </a>
-        <a href="purchase-requests.html" class="sidebar-link" id="sl-orders">
-          <span class="sidebar-icon" aria-hidden="true">🧾</span> Purchase Requests
-          <span class="sidebar-badge" id="pending-badge">0</span>
-        </a>
-      </div>
-      <div class="sidebar-nav-section">
-        <div class="sidebar-nav-label">Actions</div>
-        <a href="add-product.html" class="sidebar-link" id="sl-add">
-          <span class="sidebar-icon" aria-hidden="true">➕</span> Add Product
-        </a>
-        <a href="../index.html" class="sidebar-link" target="_blank">
-          <span class="sidebar-icon" aria-hidden="true">🏪</span> View Store
-        </a>
-      </div>
+    <!-- Fixed Docked Navigation Sidebar -->
+    <nav class="admin-sidebar">
+        <!-- Head Profile Profile -->
+        <div class="admin-sidebar-head">
+            <div class="admin-profile-thumb">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" alt="Admin Profile">
+            </div>
+            <div>
+                <h3 style="font-size: 14px; font-weight: 700; color: var(--color-primary);">Store Admin</h3>
+                <p style="font-size: 11px; color: var(--color-on-surface-variant);">Super Administrator</p>
+            </div>
+        </div>
+
+        <!-- Session navigation Links -->
+        <div class="admin-nav-links">
+            <a href="dashboard.html" class="admin-nav-link active">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a href="products.html" class="admin-nav-link">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span>Manage Products</span>
+            </a>
+            <a href="add-product.html" class="admin-nav-link">
+                <span class="material-symbols-outlined">add_box</span>
+                <span>Add Product</span>
+            </a>
+            <a href="purchase-requests.html" class="admin-nav-link">
+                <span class="material-symbols-outlined">receipt_long</span>
+                <span>Purchase Requests</span>
+            </a>
+        </div>
+
+        <!-- Footer logout triggers -->
+        <div style="margin-top: auto;">
+            <button onclick="NSBM.logoutAdmin()" class="admin-logout-btn" style="width: 100%; border: none; background: none; cursor: pointer;">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Sign Out Portal</span>
+            </button>
+        </div>
     </nav>
 
-    <div class="sidebar-footer">
-      <div class="sidebar-user" id="sidebar-user">
-        <div class="sidebar-user-avatar" id="user-avatar">A</div>
-        <div>
-          <div class="sidebar-user-name" id="user-name">Admin</div>
-          <div class="sidebar-user-role" id="user-role">Administrator</div>
-        </div>
-      </div>
-      <button class="sidebar-logout-btn" id="logout-btn" onclick="doLogout()">
-        🚪 Sign Out
-      </button>
-    </div>
-  </aside>
-
-  <!-- ── Main Content ───────────────────────────────────────────── -->
-  <div class="admin-main">
-    <!-- Topbar -->
-    <div class="admin-topbar">
-      <div>
-        <div class="admin-topbar-title">Dashboard</div>
-        <div class="admin-topbar-subtitle" id="topbar-date">Loading…</div>
-      </div>
-      <div class="admin-topbar-actions">
-        <a href="add-product.html" class="btn btn-primary btn-sm">➕ Add Product</a>
-        <button class="btn btn-ghost btn-sm" onclick="location.reload()" title="Refresh data">🔄</button>
-      </div>
-    </div>
-
-    <!-- Content -->
-    <div class="admin-content" id="admin-content">
-
-      <!-- KPI Cards -->
-      <div class="stats-grid" id="stats-grid" role="region" aria-label="Key metrics">
-        <!-- Rendered by JS -->
-      </div>
-
-      <!-- Main Grid: Recent Activity + Quick Actions -->
-      <div style="display:grid;grid-template-columns:1fr 320px;gap:var(--space-xl);margin-bottom:var(--space-xl)">
-
-        <!-- Recent Activity -->
-        <div class="table-card" role="region" aria-label="Recent activity">
-          <div class="table-card-header">
-            <div class="table-card-title">Recent Activity</div>
-          </div>
-          <div class="activity-list" id="activity-list">
-            <!-- Rendered by JS -->
-          </div>
-        </div>
-
-        <!-- Quick Actions -->
-        <div>
-          <div class="table-card" style="margin-bottom:var(--space-lg)">
-            <div class="table-card-header">
-              <div class="table-card-title">Quick Actions</div>
+    <!-- Main Workspace Area -->
+    <main class="admin-main-wrap">
+        
+        <!-- Header dashboard info -->
+        <div style="display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 16px;">
+            <div>
+                <h1 style="font-size: 32px; font-weight: 700; color: var(--color-primary);">Dashboard Overview</h1>
+                <p style="font-size: 14px; color: var(--color-on-surface-variant);">System catalog calculations and student pickup trackers.</p>
             </div>
-            <div style="padding:var(--space-md)">
-              <div class="quick-actions">
-                <a href="add-product.html"         class="quick-action-btn" id="qa-add-product">
-                  <span class="quick-action-icon">➕</span>
-                  <span class="quick-action-label">Add Product</span>
+            
+            <div style="display: flex; gap: 12px;">
+                <button onclick="NSBM.showToast('CSV Inventory Report compiled successfully!')" class="btn btn-secondary" style="padding: 8px 16px;">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                    <span>Export Report</span>
+                </button>
+                <a href="add-product.html" class="btn btn-primary" style="padding: 8px 16px;">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                    <span>Add New Product</span>
                 </a>
-                <a href="purchase-requests.html"   class="quick-action-btn" id="qa-orders">
-                  <span class="quick-action-icon">🧾</span>
-                  <span class="quick-action-label">Orders</span>
-                </a>
-                <a href="products.html"            class="quick-action-btn" id="qa-products">
-                  <span class="quick-action-icon">📦</span>
-                  <span class="quick-action-label">Products</span>
-                </a>
-              </div>
             </div>
-          </div>
+        </div>
 
-          <!-- Store Summary -->
-          <div class="table-card">
-            <div class="table-card-header">
-              <div class="table-card-title">Store Health</div>
+        <!-- Statistics Bento Grid -->
+        <section class="admin-stats-grid">
+            <!-- Products Card -->
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon-wrap">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">inventory_2</span>
+                </div>
+                <div>
+                    <span style="font-size: 13px; color: var(--color-on-surface-variant); font-weight: 500;">Total Products</span>
+                    <h2 id="stat-products" class="admin-stat-value">0</h2>
+                </div>
             </div>
-            <div style="padding:var(--space-lg)">
-              <div id="store-health-list"><!-- Rendered by JS --></div>
+
+            <!-- Categories Card -->
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon-wrap">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">category</span>
+                </div>
+                <div>
+                    <span style="font-size: 13px; color: var(--color-on-surface-variant); font-weight: 500;">Total Categories</span>
+                    <h2 id="stat-categories" class="admin-stat-value">0</h2>
+                </div>
             </div>
-          </div>
+
+            <!-- Pending Requests Card -->
+            <div class="admin-stat-card" style="border-color: var(--color-error-container);">
+                <div class="admin-stat-icon-wrap pending">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">pending_actions</span>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 13px; color: var(--color-on-surface-variant); font-weight: 500;">Pending Requests</span>
+                        <span style="font-size: 9px; font-weight: 700; background-color: var(--color-error-container); color: var(--color-on-error-container); padding: 2px 6px; border-radius: var(--radius-full);">ATTN REQ</span>
+                    </div>
+                    <h2 id="stat-pending" class="admin-stat-value">0</h2>
+                </div>
+            </div>
+
+            <!-- Completed Orders Card -->
+            <div class="admin-stat-card">
+                <div class="admin-stat-icon-wrap completed">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">task_alt</span>
+                </div>
+                <div>
+                    <span style="font-size: 13px; color: var(--color-on-surface-variant); font-weight: 500;">Completed Pickups</span>
+                    <h2 id="stat-completed" class="admin-stat-value">0</h2>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Column Detailed Grid -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; width: 100%;" class="admin-form-split">
+            
+            <!-- Left Side: Recent product table list -->
+            <div class="admin-table-card" style="grid-column: span 1; display: flex; flex-direction: column;">
+                <div class="admin-table-head-bar">
+                    <h3 style="font-size: 18px; font-weight: 700; color: var(--color-on-surface);">Recent Stock Additions</h3>
+                    <a href="products.html" class="text-primary-container font-semibold" style="font-size: 13px;">Manage All</a>
+                </div>
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Product Details</th>
+                                <th>Unit Price</th>
+                                <th>Date Added</th>
+                                <th style="text-align: right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-products-table">
+                            <!-- Populated dynamically via admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right Side: Quick Action boxes -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <!-- Quick links panel -->
+                <div style="background-color: var(--color-surface); border: 1px solid var(--color-outline-variant); border-radius: var(--radius-xl); padding: var(--spacing-md); box-shadow: var(--shadow-admin-sm); display: flex; flex-direction: column; gap: 16px;">
+                    <h3 style="font-size: 16px; font-weight: 700; color: var(--color-on-surface);">Administrative Shortcuts</h3>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <a href="add-product.html" style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: var(--radius-lg); border: 1px solid var(--color-outline-variant); hover:border-primary;" class="nav-link">
+                            <span class="material-symbols-outlined" style="color: var(--color-primary-container);">add_shopping_cart</span>
+                            <span style="font-size: 13px; font-weight: 600;">Add Product</span>
+                        </a>
+                        <a href="purchase-requests.html" style="display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: var(--radius-lg); border: 1px solid var(--color-outline-variant); hover:border-primary;" class="nav-link">
+                            <span class="material-symbols-outlined" style="color: var(--color-primary-container);">rule_folder</span>
+                            <span style="font-size: 13px; font-weight: 600;">Review Requests</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Database status panel -->
+                <div style="background-color: var(--color-surface-container-lowest); border: 1px solid var(--color-outline-variant); border-radius: var(--radius-xl); padding: var(--spacing-md); box-shadow: var(--shadow-admin-sm); position: relative; overflow: hidden;">
+                    <h3 style="font-size: 16px; font-weight: 700; color: var(--color-on-surface); margin-bottom: 8px;">System Operation Status</h3>
+                    
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                        <span style="width: 8px; height: 8px; border-radius: var(--radius-full); background-color: var(--color-secondary); display: inline-block;"></span>
+                        <span style="font-size: 13px; color: var(--color-on-surface-variant);">All systems fully operational</span>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--color-outline-variant); padding-top: 12px; font-size: 12px;">
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--color-on-surface-variant);">Database Engine</span><strong>MySQL PDO Connected</strong></div>
+                        <div style="display: flex; justify-content: space-between;"><span style="color: var(--color-on-surface-variant);">API Server State</span><strong>PHP 8 RESTful API Active</strong></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
 
-      <!-- Recent Orders Table -->
-      <div class="table-card" role="region" aria-label="Recent orders">
-        <div class="table-card-header">
-          <div class="table-card-title">Recent Purchase Requests</div>
-          <div class="table-card-actions">
-            <a href="purchase-requests.html" class="btn btn-outline btn-sm">View All →</a>
-          </div>
-        </div>
-        <div style="overflow-x:auto">
-          <table class="data-table" aria-label="Recent purchase requests">
-            <thead>
-              <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Buyer</th>
-                <th scope="col">Product</th>
-                <th scope="col">Total</th>
-                <th scope="col">Status</th>
-                <th scope="col">Date</th>
-              </tr>
-            </thead>
-            <tbody id="recent-orders-body">
-              <!-- Rendered by JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
+    </main>
 
-    </div><!-- /admin-content -->
-  </div><!-- /admin-main -->
-</div><!-- /admin-layout -->
-
-<div class="toast-container" aria-live="polite"></div>
-
-<script src="../js/data.js"></script>
-<script src="../js/router.js"></script>
-<script>
-  // Auth Guard
-  if (sessionStorage.getItem('nsbm_admin_auth') !== 'true') {
-    window.location.replace('login.html');
-  }
-
-  function doLogout() {
-    sessionStorage.removeItem('nsbm_admin_auth');
-    sessionStorage.removeItem('nsbm_admin_user');
-    window.location.replace('login.html');
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // Set user info
-    const user = JSON.parse(sessionStorage.getItem('nsbm_admin_user') || '{}');
-    if (user.name)     document.getElementById('user-name').textContent    = user.name;
-    if (user.role)     document.getElementById('user-role').textContent    = user.role;
-    if (user.initials) document.getElementById('user-avatar').textContent  = user.initials;
-
-    // Date
-    document.getElementById('topbar-date').textContent = new Date().toLocaleDateString('en-LK', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-    // Pending badge
-    const pendingCount = NSBMStore.purchaseRequests.filter(r => r.status === 'pending').length;
-    document.getElementById('pending-badge').textContent = pendingCount;
-
-    // Stats
-    const stats = NSBMStore.getStats();
-    const statsData = [
-      { label: 'Total Products', value: stats.totalProducts, icon: '📦', change: '+2 this week', dir: 'up', accent: '#006A4E', iconBg: '#e8f5f0', iconColor: '#006A4E' },
-      { label: 'Pending Orders', value: stats.pendingOrders, icon: '⏳', change: `${stats.pendingOrders} awaiting review`, dir: 'neutral', accent: '#f57f17', iconBg: '#fff8e1', iconColor: '#f57f17' },
-      { label: 'Total Revenue',  value: 'Rs. ' + stats.totalRevenue.toLocaleString('en-LK'), icon: '💰', change: 'From approved orders', dir: 'up', accent: '#2e7d32', iconBg: '#e8f5e9', iconColor: '#2e7d32' },
-      { label: 'Active Sellers', value: stats.activeSellers, icon: '🧑‍💼', change: 'Verified sellers', dir: 'up', accent: '#1565c0', iconBg: '#e3f2fd', iconColor: '#1565c0' },
-    ];
-
-    const statsGrid = document.getElementById('stats-grid');
-    statsData.forEach(s => {
-      statsGrid.innerHTML += `
-        <div class="stat-card" style="--stat-accent:${s.accent};--stat-icon-bg:${s.iconBg};--stat-icon-color:${s.iconColor}">
-          <div class="stat-icon" aria-hidden="true">${s.icon}</div>
-          <div class="stat-label">${s.label}</div>
-          <div class="stat-value">${s.value}</div>
-          <div class="stat-change ${s.dir === 'up' ? 'up' : ''}">${s.change}</div>
-        </div>`;
-    });
-
-    // Activity
-    const actList = document.getElementById('activity-list');
-    NSBMStore.recentActivity.forEach(a => {
-      actList.innerHTML += `
-        <div class="activity-item">
-          <div class="activity-dot ${a.type}"></div>
-          <div class="activity-text">${a.text}</div>
-          <div class="activity-time">${a.time}</div>
-        </div>`;
-    });
-
-    // Store health
-    const lowStock = NSBMStore.products.filter(p => p.stock > 0 && p.stock <= 5).length;
-    const outStock  = NSBMStore.products.filter(p => p.stock === 0).length;
-    const healthList = document.getElementById('store-health-list');
-    const healthItems = [
-      { label: 'Products Active',    value: NSBMStore.products.filter(p => p.stock > 0).length, ok: true },
-      { label: 'Low Stock Products', value: lowStock, ok: lowStock === 0 },
-      { label: 'Out of Stock',       value: outStock,  ok: outStock  === 0 },
-      { label: 'Pending Orders',     value: pendingCount, ok: pendingCount === 0 },
-    ];
-    healthItems.forEach(h => {
-      healthList.innerHTML += `
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-sm) 0;border-bottom:1px solid var(--color-outline-xlight)">
-          <span style="font-size:var(--font-body-sm);color:var(--color-on-surface-2)">${h.label}</span>
-          <span class="chip ${h.ok ? 'chip-success' : 'chip-warning'}">${h.value}</span>
-        </div>`;
-    });
-
-    // Recent orders
-    const tbody = document.getElementById('recent-orders-body');
-    NSBMStore.purchaseRequests.slice(0, 5).forEach(order => {
-      const chip = NSBMStore.getStatusChip(order.status);
-      tbody.innerHTML += `
-        <tr>
-          <td><span style="font-family:monospace;font-weight:var(--fw-semibold)">${order.id}</span></td>
-          <td>
-            <div style="font-weight:var(--fw-semibold)">${order.buyer}</div>
-            <div style="font-size:var(--font-label-sm);color:var(--color-on-surface-3)">${order.studentId}</div>
-          </td>
-          <td>${order.productName}</td>
-          <td style="font-weight:var(--fw-semibold);color:var(--color-primary)">${NSBMStore.formatPrice(order.total)}</td>
-          <td><span class="chip ${chip.cls}">${chip.label}</span></td>
-          <td style="color:var(--color-on-surface-3)">${order.date}</td>
-        </tr>`;
-    });
-  });
-</script>
+    <!-- Asynchronous JS Modules -->
+    <script src="../js/data.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>
