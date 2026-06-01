@@ -1,103 +1,61 @@
 <!DOCTYPE html>
+<!-- NSBM Mini Store - Admin Portal Login Access -->
+<!-- Saved at /d:/Project/Web/code/admin/login.html -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Admin Portal Login — NSBM Green Mini Store">
-  <title>Admin Login — NSBM Green Mini Store</title>
-  <link rel="stylesheet" href="../css/design-system.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/admin.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSBM Mini Store - Admin Portal Login</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="../css/design-system.css">
+    <link rel="stylesheet" href="../css/components.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
-<body>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background-color: var(--color-surface-container-low); padding: var(--spacing-sm);">
 
-<main class="login-page" id="main-content">
-  <div class="login-card" role="main">
-    <div class="login-card-header">
-      <div class="login-logo" aria-hidden="true">GS</div>
-      <h1 class="login-title">Admin Portal</h1>
-      <p class="login-subtitle">NSBM Green Mini Store Management</p>
-    </div>
-    <div class="login-card-body">
-      <div class="login-error hidden" id="login-error" role="alert">
-        <span>🚫</span>
-        <span id="login-error-msg">Invalid email or password.</span>
-      </div>
-      <form class="login-form" id="login-form" novalidate>
-        <div class="form-group">
-          <label class="form-label" for="login-email">Email Address</label>
-          <div class="input-group">
-            <span class="input-icon" aria-hidden="true">📧</span>
-            <input type="email" id="login-email" class="form-control" placeholder="admin@nsbm.ac.lk" required autocomplete="email">
-          </div>
+    <!-- Login credentials Card container -->
+    <div style="width: 100%; max-width: 440px; background-color: var(--color-surface); border: 1px solid var(--color-outline-variant); border-radius: 20px; padding: var(--spacing-md); box-shadow: var(--shadow-level-3); display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- Header Brand -->
+        <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+            <div style="width: 56px; height: 56px; border-radius: var(--radius-xl); background-color: var(--color-primary-container); color: var(--color-on-primary); display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-level-1);">
+                <span class="material-symbols-outlined" style="font-size: 32px; font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+            </div>
+            <h1 style="font-size: 24px; font-weight: 700; color: var(--color-primary); margin-top: 8px;">Admin Portal Access</h1>
+            <p style="font-size: 13px; color: var(--color-on-surface-variant);">Authentication required to access inventory database catalogs.</p>
         </div>
-        <div class="form-group">
-          <label class="form-label" for="login-password">Password</label>
-          <div class="input-group">
-            <span class="input-icon" aria-hidden="true">🔑</span>
-            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
-          </div>
+
+        <!-- Form fields details -->
+        <form id="login-form" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+                <label for="username" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Portal Username</label>
+                <input type="text" id="username" class="input-field" required placeholder="admin">
+            </div>
+            <div>
+                <label for="password" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Access Password</label>
+                <input type="password" id="password" class="input-field" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 14px; font-weight: 700; display: flex; justify-content: center; gap: 8px; margin-top: 8px;">
+                <span class="material-symbols-outlined" style="font-size: 18px;">login</span>
+                <span>Authenticate Logins</span>
+            </button>
+        </form>
+
+        <!-- Return Back navigation -->
+        <div style="text-align: center; border-top: 1px solid var(--color-outline-variant); padding-top: 12px;">
+            <a href="../index.html" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); hover:text-primary;" class="text-on-surface-variant">
+                <span>Return to Student Storefront</span>
+            </a>
         </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block" id="login-btn">
-          Sign In to Admin Portal
-        </button>
-      </form>
 
-      <p class="login-hint">
-        Demo credentials: <code>admin@nsbm.ac.lk</code> / <code>admin123</code>
-      </p>
-
-      <div style="text-align:center;margin-top:var(--space-lg)">
-        <a href="../index.html" style="font-size:var(--font-body-sm);color:var(--color-on-surface-3)">← Back to Store</a>
-      </div>
     </div>
-  </div>
-</main>
 
-<div class="toast-container" aria-live="polite"></div>
-
-<script src="../js/data.js"></script>
-<script src="../js/router.js"></script>
-<script>
-  // If already logged in, redirect to dashboard
-  if (sessionStorage.getItem('nsbm_admin_auth') === 'true') {
-    window.location.replace('dashboard.html');
-  }
-
-  document.getElementById('login-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const emailVal = document.getElementById('login-email').value.trim();
-    const passVal  = document.getElementById('login-password').value;
-    const btn      = document.getElementById('login-btn');
-    const errDiv   = document.getElementById('login-error');
-
-    btn.textContent = 'Signing in…';
-    btn.disabled    = true;
-
-    // Simulate async auth
-    setTimeout(() => {
-      const { email, password } = NSBMStore.adminUser;
-      if (emailVal === email && passVal === password) {
-        sessionStorage.setItem('nsbm_admin_auth', 'true');
-        sessionStorage.setItem('nsbm_admin_user', JSON.stringify(NSBMStore.adminUser));
-        window.location.replace('dashboard.html');
-      } else {
-        errDiv.classList.remove('hidden');
-        document.getElementById('login-error-msg').textContent = 'Invalid email or password. Please try again.';
-        btn.textContent = 'Sign In to Admin Portal';
-        btn.disabled    = false;
-        document.getElementById('login-password').value = '';
-        document.getElementById('login-password').focus();
-      }
-    }, 800);
-  });
-
-  // Remove error on input
-  ['login-email','login-password'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      document.getElementById('login-error').classList.add('hidden');
-    });
-  });
-</script>
+    <!-- Asynchronous JS Modules -->
+    <script src="../js/data.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>

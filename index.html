@@ -1,251 +1,157 @@
 <!DOCTYPE html>
+<!-- NSBM Mini Store - Student Homepage -->
+<!-- Saved at /d:/Project/Web/code/index.html -->
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NSBM Green Mini Store — Shop handmade crafts, digital art, baked goods, and study essentials created by NSBM students.">
-  <title>NSBM Green Mini Store — Student Marketplace</title>
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/storefront.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSBM Mini Store - Creative Campus Marketplace</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/storefront.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
 </head>
 <body>
 
-<!-- ── Navbar ──────────────────────────────────────────────────── -->
-<header class="navbar" role="banner">
-  <div class="container">
-    <a href="index.html" class="navbar-brand" aria-label="NSBM Green Mini Store Home">
-      <div class="brand-logo" aria-hidden="true">GS</div>
-      <span>NSBM Mini Store</span>
-    </a>
-
-    <nav class="navbar-nav" aria-label="Main navigation">
-      <a href="index.html"          class="nav-link" id="nav-home">Home</a>
-      <a href="products.html"       class="nav-link" id="nav-products">Products</a>
-      <a href="products.html?cat=handmade"  class="nav-link">Handmade</a>
-      <a href="products.html?cat=baked"     class="nav-link">Baked Goods</a>
-      <a href="products.html?cat=study"     class="nav-link">Study</a>
-    </nav>
-
-    <div class="navbar-actions">
-      <a href="checkout.html" class="cart-btn" id="cart-btn" aria-label="View cart">
-        🛒 Cart
-        <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
-      </a>
-      <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle mobile menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- Mobile Nav -->
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-  <a href="index.html"   class="nav-link">🏠 Home</a>
-  <a href="products.html" class="nav-link">🛍️ All Products</a>
-  <a href="products.html?cat=handmade"   class="nav-link">🎨 Handmade Crafts</a>
-  <a href="products.html?cat=baked"      class="nav-link">🍰 Baked Goods</a>
-  <a href="products.html?cat=study"      class="nav-link">📚 Study Essentials</a>
-  <a href="products.html?cat=digital"    class="nav-link">🖼️ Digital Art</a>
-  <a href="products.html?cat=accessories" class="nav-link">💍 Accessories</a>
-</nav>
-
-<main id="main-content">
-
-  <!-- ── Hero ──────────────────────────────────────────────────── -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-text">
-          <div class="hero-overline">🌿 Student-Powered Marketplace</div>
-          <h1 class="hero-title" id="hero-title">
-            Shop <em>Unique</em> Creations<br>from NSBM Students
-          </h1>
-          <p class="hero-subtitle">
-            Discover handmade crafts, freshly baked goods, digital art, and study essentials — all created and sold by talented NSBM students.
-          </p>
-          <div class="hero-actions">
-            <a href="products.html" class="btn-hero-primary">Browse Products →</a>
-            <a href="products.html?cat=handmade" class="btn-hero-outline">View Handmade</a>
-          </div>
-          <div class="hero-stats">
-            <div>
-              <div class="hero-stat-value" id="stat-products">14+</div>
-              <div class="hero-stat-label">Products Listed</div>
+    <!-- Dynamic Header Navigation Bar -->
+    <header class="header-container">
+        <div class="header-wrap">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
+                <span>NSBM Mini Store</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link">About</a>
+            </nav>
+            
+            <!-- Actions Section -->
+            <div class="flex" style="display: flex; align-items: center; gap: 12px;">
+                <a href="admin/login.html" class="btn btn-secondary" style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
             </div>
-            <div>
-              <div class="hero-stat-value">9</div>
-              <div class="hero-stat-label">Student Sellers</div>
+        </div>
+    </header>
+
+    <main style="flex-grow: 1;">
+        
+        <!-- Premium Institutional Hero Section -->
+        <section class="hero-section">
+            <div class="hero-wrap">
+                <!-- Left Content -->
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Buy Creative Products Made for <span>NSBM Students</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Discover unique handmade crafts, study essentials, and custom apparel created by your university peers. Support student creators today.
+                    </p>
+                    <div style="display: flex; gap: 12px; margin-top: 16px;">
+                        <a href="products.html" class="btn btn-primary" style="padding: 12px 24px;">Shop Now</a>
+                        <a href="admin/login.html" class="btn btn-secondary" style="padding: 12px 24px;">Admin Portal</a>
+                    </div>
+                </div>
+                <!-- Right Showcase Image -->
+                <div class="hero-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800" alt="Students collaborating on campus" class="hero-image">
+                </div>
             </div>
-            <div>
-              <div class="hero-stat-value">5</div>
-              <div class="hero-stat-label">Categories</div>
+            <div class="hero-bg-blur"></div>
+        </section>
+
+        <!-- Featured Products Showcase -->
+        <section style="max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-margin-mobile);">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-md);">
+                <div>
+                    <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface);">Featured Products</h2>
+                    <p style="font-size: 14px; color: var(--color-on-surface-variant);">Handpicked campus essentials from our dynamic creators.</p>
+                </div>
+                <a href="products.html" class="text-primary-container font-semibold" style="display: flex; align-items: center; gap: 4px; font-size: 14px;">
+                    <span>View All Catalog</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                </a>
             </div>
-          </div>
-        </div>
-
-        <div class="hero-visual" aria-hidden="true">
-          <div class="hero-card-stack">
-            <div class="hero-card">
-              <div class="hero-card-img">
-                <img src="https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&q=80" alt="Featured product">
-              </div>
-              <div class="hero-card-name">Macramé Wall Hanging</div>
-              <div class="hero-card-price">Rs. 1,850</div>
+            
+            <!-- Dynamic Grid (JS Populated) -->
+            <div id="featured-products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--spacing-gutter);">
+                <!-- Populated asynchronously via storefront.js -->
             </div>
-            <div class="hero-card-floating">
-              <span class="hero-card-floating-icon">✅</span>
-              <div>
-                <div style="font-weight:700;font-size:0.85rem;color:#1c1b1b">Order placed!</div>
-                <div style="font-size:0.75rem;color:#6f7a73">Ashan just purchased</div>
-              </div>
+        </section>
+
+        <!-- Bento Grid Category Browser -->
+        <section style="background-color: var(--color-surface-container-low); padding: var(--spacing-lg) var(--spacing-margin-mobile);">
+            <div style="max-width: 1200px; margin: 0 auto;">
+                <h2 style="font-size: 28px; font-weight: 700; color: var(--color-on-surface); text-align: center; margin-bottom: var(--spacing-md);">Browse by Category</h2>
+                
+                <div class="bento-grid">
+                    <!-- Apparel Card -->
+                    <a href="products.html?category=Apparel" class="bento-card bento-lg">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600" alt="Apparel Collection">
+                        <div class="bento-overlay"></div>
+                        <div class="bento-content">
+                            <h3 style="font-size: 22px; font-weight: 700; margin-bottom: 4px;">Premium Apparel</h3>
+                            <p style="font-size: 13px; color: var(--color-outline-variant);">Institutional hoodies, custom tees, and canvas wear.</p>
+                        </div>
+                    </a>
+                    
+                    <!-- Crafts Card -->
+                    <a href="products.html?category=Handmade%20Crafts" class="bento-card bento-md">
+                        <img src="https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600" alt="Handmade Crafts">
+                        <div class="bento-overlay"></div>
+                        <div class="bento-content">
+                            <h3 style="font-size: 18px; font-weight: 700;">Handmade Crafts</h3>
+                        </div>
+                    </a>
+                    
+                    <!-- Stationery Card -->
+                    <a href="products.html?category=Stationery" class="bento-card bento-md">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600" alt="Study Stationery">
+                        <div class="bento-overlay"></div>
+                        <div class="bento-content">
+                            <h3 style="font-size: 18px; font-weight: 700;">Study Essentials</h3>
+                        </div>
+                    </a>
+
+                    <!-- Digital Art Card -->
+                    <a href="products.html?category=Digital%20Art" class="bento-card bento-md" style="grid-column: span 2;">
+                        <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=600" alt="Digital Art">
+                        <div class="bento-overlay"></div>
+                        <div class="bento-content">
+                            <h3 style="font-size: 18px; font-weight: 700;">Digital Art & Prints</h3>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: center; gap: 16px;">
+            <div style="text-align: left;">
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM Mini Store</h3>
+                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and handmade craftsmanship.</p>
+            </div>
+            <div style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
+                <a href="#" class="text-primary-container">Campus Map</a>
+                <a href="#" class="text-primary-container">Contact Us</a>
+                <a href="#" class="text-primary-container">Terms</a>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2024 NSBM Mini Store. All rights reserved.</p>
+    </footer>
 
-  <!-- ── Categories ────────────────────────────────────────────── -->
-  <section class="section-sm" aria-labelledby="categories-title">
-    <div class="container">
-      <div class="section-header text-center">
-        <span class="section-overline">Explore by Category</span>
-        <h2 class="section-title" id="categories-title">What are you looking for?</h2>
-      </div>
-      <div class="categories-grid" id="categories-grid" role="list">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Featured Products ──────────────────────────────────────── -->
-  <section class="section" style="background: var(--color-surface-3);" aria-labelledby="featured-title">
-    <div class="container">
-      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-md)">
-        <div>
-          <span class="section-overline">Handpicked for you</span>
-          <h2 class="section-title" id="featured-title">Featured Products</h2>
-          <p class="section-subtitle">Top picks from our most loved student creators</p>
-        </div>
-        <a href="products.html" class="btn btn-outline">View All Products →</a>
-      </div>
-      <div class="products-grid" id="featured-grid" aria-label="Featured products">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Promo Banner ───────────────────────────────────────────── -->
-  <section class="section-sm">
-    <div class="container">
-      <div class="promo-banner" role="complementary" aria-label="Study Essentials promotion">
-        <div>
-          <div class="promo-overline">📚 Exam Season Special</div>
-          <h2 class="promo-title">Stock Up on Study Essentials</h2>
-          <p class="promo-subtitle">Notebooks, highlighters, index cards — everything you need, curated by students who've been there.</p>
-          <a href="products.html?cat=study" class="btn btn-primary btn-lg">Shop Study Essentials</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── All Products Glimpse ───────────────────────────────────── -->
-  <section class="section" aria-labelledby="more-title">
-    <div class="container">
-      <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:var(--space-md)">
-        <div>
-          <span class="section-overline">More to Discover</span>
-          <h2 class="section-title" id="more-title">From Our Community</h2>
-        </div>
-        <a href="products.html" class="btn btn-outline">Browse All →</a>
-      </div>
-      <div class="products-grid" id="more-grid" aria-label="More products">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ── Footer ─────────────────────────────────────────────────── -->
-<footer class="footer" role="contentinfo">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand-logo" aria-hidden="true">GS</div>
-        <div class="footer-brand-name">NSBM Green Mini Store</div>
-        <p class="footer-brand-desc">A student-powered marketplace connecting creative NSBM students with buyers on campus. Support local talent, buy local.</p>
-      </div>
-      <div class="footer-col">
-        <h4>Shop</h4>
-        <ul>
-          <li><a href="products.html">All Products</a></li>
-          <li><a href="products.html?cat=handmade">Handmade Crafts</a></li>
-          <li><a href="products.html?cat=baked">Baked Goods</a></li>
-          <li><a href="products.html?cat=study">Study Essentials</a></li>
-          <li><a href="products.html?cat=digital">Digital Art</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Help</h4>
-        <ul>
-          <li><a href="#">How It Works</a></li>
-          <li><a href="#">Seller Guidelines</a></li>
-          <li><a href="#">Returns Policy</a></li>
-          <li><a href="#">Contact Support</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>NSBM</h4>
-        <ul>
-          <li><a href="https://www.nsbm.ac.lk" target="_blank" rel="noopener">NSBM Website</a></li>
-          <li><a href="#">Student Portal</a></li>
-          <li><a href="admin/login.html">Admin Portal</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2024 NSBM Green Mini Store. All rights reserved.</span>
-      <span>Built by NSBM Students 💚</span>
-    </div>
-  </div>
-</footer>
-
-<!-- Toast Container -->
-<div class="toast-container" aria-live="polite" aria-atomic="true"></div>
-
-<script src="js/data.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/router.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Update product stat
-    document.getElementById('stat-products').textContent = NSBMStore.products.length + '+';
-
-    // Render categories
-    const catGrid = document.getElementById('categories-grid');
-    NSBMStore.categories.filter(c => c.id !== 'all').forEach(cat => {
-      catGrid.innerHTML += `
-        <a href="products.html?cat=${cat.id}" class="category-tile" role="listitem">
-          <div class="category-icon">${cat.icon}</div>
-          <div class="category-name">${cat.name}</div>
-          <div class="category-count">${cat.count} items</div>
-        </a>`;
-    });
-
-    // Render featured products
-    const featuredGrid = document.getElementById('featured-grid');
-    NSBMStore.getFeaturedProducts().forEach(p => {
-      featuredGrid.innerHTML += renderProductCard(p);
-    });
-
-    // Render "more" products (non-featured, first 4)
-    const moreGrid = document.getElementById('more-grid');
-    NSBMStore.products.filter(p => !p.featured).slice(0, 4).forEach(p => {
-      moreGrid.innerHTML += renderProductCard(p);
-    });
-  });
-</script>
+    <!-- Asynchronous JS Modules -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/storefront.js"></script>
 </body>
 </html>

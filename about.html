@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<!-- NSBM Mini Store - About & Locations Page -->
+<!-- Saved at /d:/Project/Web/code/about.html -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - NSBM Mini Store</title>
+    
+    <!-- Centralized CSS Styling -->
+    <link rel="stylesheet" href="css/design-system.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/storefront.css">
+    
+    <!-- Google Fonts & Iconsets -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+
+    <!-- Dynamic Header Navigation Bar -->
+    <header class="header-container">
+        <div class="header-wrap">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 28px;">storefront</span>
+                <span>NSBM Mini Store</span>
+            </a>
+            
+            <!-- Navigation Links -->
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="products.html" class="nav-link">Products</a>
+                <a href="about.html" class="nav-link active">About</a>
+            </nav>
+            
+            <!-- Actions Section -->
+            <div class="flex" style="display: flex; align-items: center; gap: 12px;">
+                <a href="admin/login.html" class="btn btn-secondary" style="padding: 8px 16px; border-radius: var(--radius-lg);">Admin Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <main style="flex-grow: 1; max-width: 1200px; margin: 0 auto; padding: var(--spacing-lg) var(--spacing-margin-mobile); width: 100%; display: flex; flex-direction: column; gap: var(--spacing-lg);">
+        
+        <!-- Page Header -->
+        <div>
+            <h1 style="font-size: 36px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">About the Mini Store</h1>
+            <p style="font-size: 14px; color: var(--color-on-surface-variant);">Empowering student entrepreneurship and peer creativity on campus.</p>
+        </div>
+
+        <!-- Split Grid Showcase -->
+        <div class="details-container">
+            <!-- Left Column: Story & Mission -->
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-outline-variant); border-radius: 20px; padding: var(--spacing-md); box-shadow: var(--shadow-level-1);">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">storefront</span>
+                        <span>Our Mission</span>
+                    </h3>
+                    <p style="font-size: 14px; color: var(--color-on-surface-variant); line-height: 1.6; margin-bottom: 12px;">
+                        The NSBM Mini Store is a student-centric campus marketplace designed to empower student entrepreneurship and showcase peer creativity. Run by the Student Union, we curate official faculty merchandise, custom stationery, and handcrafted student works, helping creators grow their micro-businesses on campus.
+                    </p>
+                    <p style="font-size: 14px; color: var(--color-on-surface-variant); line-height: 1.6;">
+                        Every single purchase directly supports local student artisans, student bakers, and creative digital artists, fostering a collaborative ecosystem of campus commerce.
+                    </p>
+                </div>
+
+                <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-outline-variant); border-radius: 20px; padding: var(--spacing-md); box-shadow: var(--shadow-level-1);">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">volunteer_activism</span>
+                        <span>Supporting Student Creators</span>
+                    </h3>
+                    <p style="font-size: 14px; color: var(--color-on-surface-variant); line-height: 1.6;">
+                        We believe in fostering practical skills along with academic learning. By providing student creators a dynamic platform to register and sell their crafts, designs, and baked items, the Mini Store serves as an incubator for the next generation of academic entrepreneurs.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Column: Location & Working hours cards -->
+            <div style="background-color: var(--color-surface-container-low); border: 1px solid var(--color-outline-variant); border-radius: 20px; padding: var(--spacing-md); box-shadow: var(--shadow-level-1); display: flex; flex-direction: column; gap: 24px;">
+                <h3 style="font-size: 20px; font-weight: 700; color: var(--color-primary); border-bottom: 1px solid var(--color-outline-variant); padding-bottom: var(--spacing-xs);">Store Locations & Hours</h3>
+                
+                <!-- Location 1 -->
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                    <span class="material-symbols-outlined" style="color: var(--color-primary-container); margin-top: 2px;">location_on</span>
+                    <div>
+                        <strong style="font-size: 14px; color: var(--color-on-surface); display: block; margin-bottom: 2px;">Primary Storefront</strong>
+                        <span style="font-size: 13px; color: var(--color-on-surface-variant); line-height: 1.4; display: block;">Student Union Lounge, Block A, Ground Floor, NSBM Green University Campus.</span>
+                    </div>
+                </div>
+
+                <!-- Location 2 -->
+                <div style="display: flex; gap: 12px; align-items: flex-start;">
+                    <span class="material-symbols-outlined" style="color: var(--color-primary-container); margin-top: 2px;">business</span>
+                    <div>
+                        <strong style="font-size: 14px; color: var(--color-on-surface); display: block; margin-bottom: 2px;">Administrative Office</strong>
+                        <span style="font-size: 13px; color: var(--color-on-surface-variant); line-height: 1.4; display: block;">Student Services Center, Block B, First Floor.</span>
+                    </div>
+                </div>
+
+                <!-- Hours -->
+                <div style="display: flex; gap: 12px; align-items: flex-start; border-top: 1px dashed var(--color-outline-variant); padding-top: 16px;">
+                    <span class="material-symbols-outlined" style="color: var(--color-secondary); margin-top: 2px;">schedule</span>
+                    <div>
+                        <strong style="font-size: 14px; color: var(--color-on-surface); display: block; margin-bottom: 2px;">Operational Hours</strong>
+                        <span style="font-size: 13px; color: var(--color-on-surface-variant); display: block;">Monday – Friday: 09:00 AM – 04:00 PM</span>
+                        <span style="font-size: 11px; color: var(--color-outline); display: block; margin-top: 2px;">Saturday – Sunday & Academic Holidays: Closed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer style="background-color: var(--color-surface-container-highest); border-top: 1px solid var(--color-outline-variant); padding: var(--spacing-lg) var(--spacing-margin-mobile); text-align: center; margin-top: auto;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: center; gap: 16px;">
+            <div style="text-align: left;">
+                <h3 style="font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px;">NSBM Mini Store</h3>
+                <p style="font-size: 13px; color: var(--color-on-surface-variant);">Empowering campus creators and handmade craftsmanship.</p>
+            </div>
+            <div style="display: flex; gap: var(--spacing-md); font-size: 13px; font-weight: 500; color: var(--color-on-surface-variant);">
+                <a href="#" class="text-primary-container">Campus Map</a>
+                <a href="#" class="text-primary-container">Contact Us</a>
+                <a href="#" class="text-primary-container">Terms</a>
+            </div>
+        </div>
+        <p style="font-size: 12px; color: var(--color-outline); margin-top: 24px;">© 2024 NSBM Mini Store. All rights reserved.</p>
+    </footer>
+
+    <!-- Asynchronous JS Modules -->
+    <script src="js/data.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>
