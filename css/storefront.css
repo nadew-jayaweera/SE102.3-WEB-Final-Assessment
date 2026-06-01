@@ -301,7 +301,7 @@
 }
 
 .student-verify-loading {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
@@ -311,6 +311,10 @@
     color: var(--color-on-surface-variant);
     font-size: 13px;
     font-weight: 500;
+}
+
+.student-verify-loading.is-active {
+    display: flex;
     animation: student-verify-loading-in 280ms ease;
 }
 
@@ -343,13 +347,6 @@
     opacity: 0;
 }
 
-.student-verify-btn--loading .nsbm-spinner--btn {
-    display: block;
-    position: absolute;
-    inset: 0;
-    margin: auto;
-}
-
 .nsbm-spinner {
     display: inline-block;
     width: 18px;
@@ -362,9 +359,17 @@
 }
 
 .nsbm-spinner--btn {
+    display: none;
     width: 16px;
     height: 16px;
     border-width: 2px;
+    position: absolute;
+    inset: 0;
+    margin: auto;
+}
+
+.student-verify-btn--loading .nsbm-spinner--btn {
+    display: block;
 }
 
 @keyframes nsbm-spin {

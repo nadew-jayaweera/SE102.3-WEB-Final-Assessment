@@ -319,7 +319,6 @@
         const verifyResult = document.getElementById("student-verify-result");
         const verifyHint = document.getElementById("student-verify-hint");
         const verifyBtnLabel = verifyBtn?.querySelector(".student-verify-btn__label");
-        const verifyBtnSpinner = verifyBtn?.querySelector(".nsbm-spinner--btn");
         const customerNameInput = document.getElementById("customer-name");
         const emailInput = document.getElementById("email");
         const phoneInput = document.getElementById("phone");
@@ -343,28 +342,30 @@
             "Enter your 5-digit NSBM Student ID — your registry details will load automatically. Other fields unlock once verified.";
 
         function setVerificationLoading(loading) {
+            const hasEnoughDigits =
+                normalizeStudentId(nsbmIdInput?.value).length >= MIN_STUDENT_ID_DIGITS;
+            const showLoading = Boolean(loading && hasEnoughDigits);
+
             if (verifyBtn) {
-                verifyBtn.disabled = loading;
-                verifyBtn.classList.toggle("student-verify-btn--loading", loading);
-            }
-            if (verifyBtnSpinner) {
-                verifyBtnSpinner.hidden = !loading;
+                verifyBtn.disabled = showLoading;
+                verifyBtn.classList.toggle("student-verify-btn--loading", showLoading);
             }
             if (verifyBtnLabel) {
-                verifyBtnLabel.textContent = loading ? "Verifying…" : "Verify ID";
+                verifyBtnLabel.textContent = showLoading ? "Verifying…" : "Verify ID";
             }
             if (verifyRow) {
-                verifyRow.classList.toggle("student-verify-row--loading", loading);
+                verifyRow.classList.toggle("student-verify-row--loading", showLoading);
             }
             if (verifyLoading) {
-                verifyLoading.hidden = !loading;
+                verifyLoading.classList.toggle("is-active", showLoading);
+                verifyLoading.setAttribute("aria-hidden", showLoading ? "false" : "true");
             }
             if (nsbmIdInput) {
-                nsbmIdInput.setAttribute("aria-busy", loading ? "true" : "false");
+                nsbmIdInput.setAttribute("aria-busy", showLoading ? "true" : "false");
             }
             if (verifyHint && !verifiedStudent) {
-                verifyHint.classList.toggle("student-verify-hint--hidden", loading);
-                if (!loading) {
+                verifyHint.classList.toggle("student-verify-hint--hidden", showLoading);
+                if (!showLoading) {
                     verifyHint.textContent = VERIFY_HINT_DEFAULT;
                 }
             }
@@ -449,6 +450,7 @@
         }
 
         setDependentFieldsEnabled(false);
+        setVerificationLoading(false);
 
         function renderVerificationSuccess(student) {
             if (!verifyResult) return;
