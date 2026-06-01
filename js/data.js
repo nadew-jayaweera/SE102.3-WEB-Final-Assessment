@@ -184,6 +184,16 @@
         },
 
         async loginAdmin(username, password) {
+            // Offline mode (file://) – accept any credentials for demo purposes
+            if (window.location.protocol === 'file:') {
+                localStorage.setItem('nsbm_admin_session', JSON.stringify({
+                    logged_in: true,
+                    username,
+                    timestamp: Date.now()
+                }));
+                showToast('Login successful (offline demo). Redirecting to dashboard...');
+                return true;
+            }
             try {
                 const response = await fetch(`${pathPrefix}api/auth.php?action=login`, {
                     method: 'POST',
@@ -192,15 +202,14 @@
                 });
                 const result = await response.json();
                 if (!response.ok) throw new Error(result.message || 'Authentication failed.');
-                
-                if (window.location.protocol === 'file:') {
-                    localStorage.setItem('nsbm_admin_session', JSON.stringify({
-                        logged_in: true,
-                        username: result.username,
-                        timestamp: Date.now()
-                    }));
-                }
-                
+
+                // Store session for offline fallback
+                localStorage.setItem('nsbm_admin_session', JSON.stringify({
+                    logged_in: true,
+                    username: result.username,
+                    timestamp: Date.now()
+                }));
+
                 showToast('Login successful. Redirecting to dashboard...');
                 return true;
             } catch (err) {
