@@ -115,7 +115,91 @@
     color: var(--color-primary);
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 10px;
+    text-decoration: none;
+    line-height: 1.2;
+    flex-shrink: 0;
+}
+.brand-logo:hover {
+    color: var(--color-primary);
+    opacity: 0.92;
+}
+.brand-logo__img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+.brand-logo__name {
+    white-space: nowrap;
+}
+.brand-logo--stacked {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+.brand-logo__img--lg {
+    height: 56px;
+}
+.brand-logo__img--sm {
+    height: 32px;
+}
+.brand-logo--sidebar {
+    width: 100%;
+}
+.brand-logo__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+.brand-logo__tagline {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-on-surface-variant);
+}
+.brand-logo--compact {
+    font-size: 16px;
+    gap: 8px;
+}
+.brand-logo--sidebar .brand-logo__name {
+    font-size: 14px;
+}
+
+/* NSBM Green University Town — horizontal logo with wordmark */
+.university-brand {
+    display: inline-block;
+    line-height: 0;
+}
+.university-brand__img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+.university-brand--hero .university-brand__img {
+    max-width: min(100%, 420px);
+}
+.university-brand--footer .university-brand__img {
+    max-width: 220px;
+    margin-bottom: 12px;
+}
+.university-brand--inline .university-brand__img {
+    max-width: 180px;
+}
+.university-brand--login {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 12px;
+    margin-top: 4px;
+    border-top: 1px solid var(--color-outline-variant);
+}
+.university-brand--login .university-brand__img {
+    max-width: 260px;
+    margin: 12px auto 0;
 }
 
 .nav-links {
