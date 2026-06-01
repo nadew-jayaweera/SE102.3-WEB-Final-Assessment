@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     `quantity` INT NOT NULL,
     `status` ENUM('Available', 'Out of Stock') DEFAULT 'Available',
     `description` TEXT,
-    `image` VARCHAR(500) NOT NULL,
+    `image` MEDIUMTEXT NOT NULL,
     `date_added` DATE NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
