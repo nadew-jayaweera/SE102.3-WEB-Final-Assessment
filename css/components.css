@@ -427,3 +427,15 @@
 .modal-overlay.open .modal-container {
     transform: translateY(0);
 }
+
+/* --- 9. Responsive Flex Utilities --- */
+.flex-col-md-row {
+    display: flex;
+    flex-direction: column;
+}
+@media (min-width: 768px) {
+    .flex-col-md-row {
+        flex-direction: row;
+    }
+}
+
