@@ -229,7 +229,7 @@
                         <span id="global-cart-badge" class="cart-badge" style="opacity: 0; transform: scale(0.5);">0</span>
                     `;
                     cartBtn.addEventListener("click", () => this.toggleCart(true));
-                    actionsDiv.insertBefore(cartBtn, actionsDiv.firstChild);
+                    actionsDiv.appendChild(cartBtn);
                 }
             }
 
