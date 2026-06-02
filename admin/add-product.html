@@ -91,14 +91,19 @@
                 
                 <!-- Left Side: Image Uploader Mockup & Live Thumbnail -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <div class="admin-image-preview-card">
+                    <div class="admin-image-preview-card" id="image-dropzone">
                         <img id="preview-img" src="https://images.unsplash.com/photo-1544816155-12df9643f363?w=400" alt="Product Image Preview" class="admin-image-preview">
+                        <div class="drop-zone-overlay">
+                            <span class="material-symbols-outlined" style="font-size: 40px; margin-bottom: 8px;">cloud_upload</span>
+                            <span>Drag & drop image here or click to browse</span>
+                        </div>
                     </div>
+                    <input type="file" id="image-file" accept="image/*" style="display: none;">
 
                     <div>
-                        <label for="image" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Product Image URL</label>
-                        <input type="url" id="image" class="input-field" placeholder="Enter product image URL (e.g. https://images.unsplash.com/...)">
-                        <span style="font-size: 11px; color: var(--color-outline); margin-top: 4px; display: block;">Provide a high-quality online image link to update the thumbnail live.</span>
+                        <label for="image" style="font-size: 13px; font-weight: 600; color: var(--color-on-surface-variant); display: block; margin-bottom: 4px;">Product Image URL / Base64</label>
+                        <input type="url" id="image" class="input-field" placeholder="Enter product image URL or upload above">
+                        <span style="font-size: 11px; color: var(--color-outline); margin-top: 4px; display: block;">Provide an online image URL, or drag & drop / click the preview box above to upload a local image file.</span>
                     </div>
                 </div>      
 

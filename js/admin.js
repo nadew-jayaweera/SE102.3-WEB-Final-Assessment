@@ -325,6 +325,95 @@
             });
         }
 
+        // --- Drag and Drop + Click to Upload Logic ---
+        const dropzone = document.getElementById("image-dropzone");
+        const fileInput = document.getElementById("image-file");
+
+        if (dropzone && fileInput && imageInput && previewImg) {
+            // Click dropzone triggers file picker
+            dropzone.addEventListener("click", () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    handleImageFile(file);
+                }
+            });
+
+            // Drag states styling
+            ["dragenter", "dragover"].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add("dragover");
+                }, false);
+            });
+
+            ["dragleave", "drop"].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove("dragover");
+                }, false);
+            });
+
+            dropzone.addEventListener("drop", (e) => {
+                const dt = e.dataTransfer;
+                const file = dt.files[0];
+                if (file) {
+                    handleImageFile(file);
+                }
+            });
+        }
+
+        // Compresses image using canvas to base64 URI
+        function handleImageFile(file) {
+            if (!file.type.startsWith("image/")) {
+                window.NSBM.showToast("Please select a valid image file (PNG/JPG).", "error");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const maxDim = 800;
+                    let width = img.width;
+                    let height = img.height;
+
+                    // Calculate aspect ratio scale
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    const canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    // Compress to JPEG format with 85% quality
+                    const compressedBase64 = canvas.toDataURL("image/jpeg", 0.85);
+
+                    imageInput.value = compressedBase64;
+                    previewImg.src = compressedBase64;
+                    window.NSBM.showToast("Image uploaded and compressed successfully!", "success");
+                };
+                img.onerror = () => {
+                    window.NSBM.showToast("Error processing image file content.", "error");
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
         let isEditMode = false;
 
         if (editId) {
