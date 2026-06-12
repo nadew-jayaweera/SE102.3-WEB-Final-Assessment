@@ -154,7 +154,7 @@
             html += `
                 <tr ${rowBgStyle}>
                     <td style="padding: 16px; display: flex; align-items: center; gap: 12px; font-weight: 500;">
-                        <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
+                        <img src="${window.NSBM.getProductImageUrl(product.image)}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
                         <span>${product.name}</span>
                     </td>
                     <td style="padding: 16px; color: var(--color-on-surface-variant);">LKR ${priceFormatted}</td>
@@ -204,7 +204,7 @@
                 html += `
                     <tr ${rowBgStyle}>
                         <td style="padding: 16px; display: flex; align-items: center; gap: 12px; font-weight: 500;">
-                            <img src="${product.image}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
+                            <img src="${window.NSBM.getProductImageUrl(product.image)}" alt="${product.name.replace(/"/g, '&quot;')}" style="width: 44px; height: 44px; object-fit: cover; border-radius: 6px; border: 1px solid var(--color-outline-variant);" />
                             <span>${product.name}</span>
                         </td>
                         <td style="padding: 16px; color: var(--color-on-surface-variant);">${product.category}</td>
@@ -321,7 +321,7 @@
         if (imageInput && previewImg) {
             imageInput.addEventListener("input", (e) => {
                 const url = e.target.value.trim();
-                previewImg.src = url ? url : 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400';
+                previewImg.src = url ? window.NSBM.getProductImageUrl(url) : 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400';
             });
         }
 
@@ -431,7 +431,7 @@
                 quantityInput.value = product.quantity;
                 descInput.value = product.description || product.desc || '';
                 imageInput.value = product.image;
-                if (previewImg) previewImg.src = product.image;
+                if (previewImg) previewImg.src = window.NSBM.getProductImageUrl(product.image);
             } else {
                 window.NSBM.showToast("Product not found.", "error");
                 setTimeout(() => { window.location.href = "products.html"; }, 1500);

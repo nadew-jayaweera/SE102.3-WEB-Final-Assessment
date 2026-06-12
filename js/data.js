@@ -78,6 +78,14 @@
         // Expose Toast system globally
         showToast,
 
+        getProductImageUrl(imagePath) {
+            if (!imagePath) return '';
+            if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:')) {
+                return imagePath;
+            }
+            return pathPrefix + imagePath;
+        },
+
         // 1. PRODUCTS API WRAPPERS
         async getProducts(filters = {}) {
             try {
